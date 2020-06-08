@@ -1,15 +1,20 @@
 package com.gcmmogi.gcm.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.gcmmogi.gcm.entities.enums.Posto;
 
 @Entity
+@Table(name = "tb_oficial")
 public class Oficial implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -22,6 +27,9 @@ public class Oficial implements Serializable{
 	private String time;
 	private Integer viatura;
 	private Posto posto;
+	
+	@OneToMany(mappedBy = "oficial")
+	private List<BoletimOcorrencia> boletins = new ArrayList<>();
 	
 	public Oficial() {
 	}
@@ -91,6 +99,10 @@ public class Oficial implements Serializable{
 
 	public void setPosto(Posto posto) {
 		this.posto = posto;
+	}
+	
+	public List<BoletimOcorrencia> getBoletins() {
+		return boletins;
 	}
 
 	@Override
