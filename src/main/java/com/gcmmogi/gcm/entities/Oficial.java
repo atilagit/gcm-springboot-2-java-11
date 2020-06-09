@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gcmmogi.gcm.entities.enums.Posto;
 
 @Entity
@@ -28,6 +29,7 @@ public class Oficial implements Serializable{
 	private Integer viatura;
 	private Posto posto;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "oficial")
 	private List<BoletimOcorrencia> boletins = new ArrayList<>();
 	

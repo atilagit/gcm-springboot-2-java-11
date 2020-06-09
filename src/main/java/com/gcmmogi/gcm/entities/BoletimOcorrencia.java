@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "tb_boletimOcorrencia")
 public class BoletimOcorrencia implements Serializable{
@@ -20,14 +22,24 @@ public class BoletimOcorrencia implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Integer numeroDaOcorrencia;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant data;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant horaFato;
+	
 	private Integer numTalao;
 	private Integer viatura;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant horaDeIrradiacao;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant horaLocal;
-	private String primeiroTermino;
-	private String segundoTermino;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	private Instant primeiroTermino;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	private Instant segundoTermino;
+	
 	private String kmDeIrradiacao;
 	private String kmLocal;
 	private String kmPrimeiroTermino;
@@ -43,7 +55,7 @@ public class BoletimOcorrencia implements Serializable{
 	}
 
 	public BoletimOcorrencia(Long id, Integer numeroDaOcorrencia, Instant data, Instant horaFato, Integer numTalao,
-			Integer viatura, Instant horaDeIrradiacao, Instant horaLocal, String primeiroTermino, String segundoTermino,
+			Integer viatura, Instant horaDeIrradiacao, Instant horaLocal, Instant primeiroTermino, Instant segundoTermino,
 			String kmDeIrradiacao, String kmLocal, String kmPrimeiroTermino, String kmSegundoTermino, String local,
 			String relatorioDaGCM, Oficial oficial) {
 		super();
@@ -130,19 +142,19 @@ public class BoletimOcorrencia implements Serializable{
 		this.horaLocal = horaLocal;
 	}
 
-	public String getPrimeiroTermino() {
+	public Instant getPrimeiroTermino() {
 		return primeiroTermino;
 	}
 
-	public void setPrimeiroTermino(String primeiroTermino) {
+	public void setPrimeiroTermino(Instant primeiroTermino) {
 		this.primeiroTermino = primeiroTermino;
 	}
 
-	public String getSegundoTermino() {
+	public Instant getSegundoTermino() {
 		return segundoTermino;
 	}
 
-	public void setSegundoTermino(String segundoTermino) {
+	public void setSegundoTermino(Instant segundoTermino) {
 		this.segundoTermino = segundoTermino;
 	}
 
