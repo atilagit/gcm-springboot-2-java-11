@@ -27,7 +27,8 @@ public class Oficial implements Serializable{
 	private String nome;
 	private String time;
 	private Integer viatura;
-	private Posto posto;
+	
+	private Integer posto;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "oficial")
@@ -44,7 +45,7 @@ public class Oficial implements Serializable{
 		this.nome = nome;
 		this.time = time;
 		this.viatura = viatura;
-		this.posto = posto;
+		setPosto(posto);
 	}
 
 	public Long getId() {
@@ -96,11 +97,13 @@ public class Oficial implements Serializable{
 	}
 
 	public Posto getPosto() {
-		return posto;
+		return Posto.valueOf(posto);
 	}
 
 	public void setPosto(Posto posto) {
-		this.posto = posto;
+		if(posto != null) {
+			this.posto = posto.getCode();
+		}
 	}
 	
 	public List<BoletimOcorrencia> getBoletins() {
