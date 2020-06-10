@@ -3,10 +3,12 @@ package com.gcmmogi.gcm.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -33,7 +35,7 @@ public class Envolvido implements Serializable {
 	private String localDeTrabalho;
 	private String versaoDoEnvolvido;
 
-	@Transient
+	@OneToOne(mappedBy = "envolvido", cascade = CascadeType.ALL)
 	private RG rg;
 
 	@Transient

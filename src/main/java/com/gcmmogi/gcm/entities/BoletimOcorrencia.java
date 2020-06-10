@@ -40,10 +40,10 @@ public class BoletimOcorrencia implements Serializable{
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant segundoTermino;
 	
-	private String kmDeIrradiacao;
-	private String kmLocal;
-	private String kmPrimeiroTermino;
-	private String kmSegundoTermino;
+	private Integer kmDeIrradiacao;
+	private Integer kmLocal;
+	private Integer kmPrimeiroTermino;
+	private Integer kmSegundoTermino;
 	private String local;
 	private String relatorioDaGCM;
 	
@@ -56,7 +56,7 @@ public class BoletimOcorrencia implements Serializable{
 
 	public BoletimOcorrencia(Long id, Integer numeroDaOcorrencia, Instant data, Instant horaFato, Integer numTalao,
 			Integer viatura, Instant horaDeIrradiacao, Instant horaLocal, Instant primeiroTermino, Instant segundoTermino,
-			String kmDeIrradiacao, String kmLocal, String kmPrimeiroTermino, String kmSegundoTermino, String local,
+			Integer kmDeIrradiacao, Integer kmLocal, Integer kmPrimeiroTermino, Integer kmSegundoTermino, String local,
 			String relatorioDaGCM, Oficial oficial) {
 		super();
 		this.id = id;
@@ -158,35 +158,35 @@ public class BoletimOcorrencia implements Serializable{
 		this.segundoTermino = segundoTermino;
 	}
 
-	public String getKmDeIrradiacao() {
+	public Integer getKmDeIrradiacao() {
 		return kmDeIrradiacao;
 	}
 
-	public void setKmDeIrradiacao(String kmDeIrradiacao) {
+	public void setKmDeIrradiacao(Integer kmDeIrradiacao) {
 		this.kmDeIrradiacao = kmDeIrradiacao;
 	}
 
-	public String getKmLocal() {
+	public Integer getKmLocal() {
 		return kmLocal;
 	}
 
-	public void setKmLocal(String kmLocal) {
+	public void setKmLocal(Integer kmLocal) {
 		this.kmLocal = kmLocal;
 	}
 
-	public String getKmPrimeiroTermino() {
+	public Integer getKmPrimeiroTermino() {
 		return kmPrimeiroTermino;
 	}
 
-	public void setKmPrimeiroTermino(String kmPrimeiroTermino) {
+	public void setKmPrimeiroTermino(Integer kmPrimeiroTermino) {
 		this.kmPrimeiroTermino = kmPrimeiroTermino;
 	}
 
-	public String getKmSegundoTermino() {
+	public Integer getKmSegundoTermino() {
 		return kmSegundoTermino;
 	}
 
-	public void setKmSegundoTermino(String kmSegundoTermino) {
+	public void setKmSegundoTermino(Integer kmSegundoTermino) {
 		this.kmSegundoTermino = kmSegundoTermino;
 	}
 
