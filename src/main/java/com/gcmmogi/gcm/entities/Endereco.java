@@ -1,16 +1,19 @@
 package com.gcmmogi.gcm.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_endereco")
-public class Endereco implements Serializable{
+public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -22,6 +25,9 @@ public class Endereco implements Serializable{
 	private String cidade;
 	private String estado;
 	private String complemento;
+
+	@Transient
+	private List<Envolvido> envolvidos = new ArrayList<>();
 
 	public Endereco() {
 	}
@@ -92,6 +98,10 @@ public class Endereco implements Serializable{
 
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
+	}
+
+	public List<Envolvido> getEnvolvido() {
+		return envolvidos;
 	}
 
 	@Override

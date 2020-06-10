@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_rg")
@@ -20,17 +21,19 @@ public class RG implements Serializable {
 	private String orgaoExpedidor;
 	private String estado;
 
-	// private Envolvido envolvido;
+	@Transient
+	private Envolvido envolvido;
 
 	public RG() {
 	}
 
-	public RG(Long id, String numeroDoRG, String orgaoExpedidor, String estado) {
+	public RG(Long id, String numeroDoRG, String orgaoExpedidor, String estado, Envolvido envolvido) {
 		super();
 		this.id = id;
 		this.numeroDoRG = numeroDoRG;
 		this.orgaoExpedidor = orgaoExpedidor;
 		this.estado = estado;
+		this.envolvido = envolvido;
 	}
 
 	public Long getId() {
@@ -63,6 +66,14 @@ public class RG implements Serializable {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public Envolvido getEnvolvido() {
+		return envolvido;
+	}
+
+	public void setEnvolvido(Envolvido envolvido) {
+		this.envolvido = envolvido;
 	}
 
 	@Override
