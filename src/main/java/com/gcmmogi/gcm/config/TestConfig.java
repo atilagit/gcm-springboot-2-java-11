@@ -40,8 +40,8 @@ public class TestConfig implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		
 		Endereco end1 = new Endereco(null, "Teste residencia1", 21, "Teste bairro1", "Teste Cidade1", "SP", "Teste complemento1");
-		Endereco end2 = new Endereco(null, "Teste residencia2", 21, "Teste bairro2", "Teste Cidade2", "MG", "Teste complemento2");
-		Endereco end3 = new Endereco(null, "Teste residencia3", 21, "Teste bairro3", "Teste Cidade3", "PA", "Teste complemento3");
+		Endereco end2 = new Endereco(null, "Teste residencia2", 22, "Teste bairro2", "Teste Cidade2", "MG", "Teste complemento2");
+		Endereco end3 = new Endereco(null, "Teste residencia3", 23, "Teste bairro3", "Teste Cidade3", "PA", "Teste complemento3");
 
 		Envolvido env1 = new Envolvido(null, CondicaoDaParte.AUTOR, true, "Ze Lorota", Instant.parse("1980-06-20T19:53:07Z"), "pai do ze", "mae do ze", "Brasileiro", "teste cidade1", "SP", "1988554477", "Açougue", "teste de versao do envolvido1", null, end1);
 		Envolvido env2 = new Envolvido(null, CondicaoDaParte.INDICIADO, true, "Joaquim do bar", Instant.parse("1981-06-20T19:53:07Z"), "pai do joaquim", "mae do joaquim", "Brasileiro", "teste cidade2", "SP", "1999554477", "Padaria", "teste de versao do envolvido2", null, end2);

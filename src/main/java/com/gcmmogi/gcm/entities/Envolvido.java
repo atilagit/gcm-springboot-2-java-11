@@ -8,10 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gcmmogi.gcm.entities.enums.CondicaoDaParte;
 
 @Entity
@@ -25,7 +27,10 @@ public class Envolvido implements Serializable {
 	private Integer condicaoDaParte;
 	private Boolean conduzido;
 	private String nome;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant dataNascimento;
+	
 	private String pai;
 	private String mae;
 	private String nacionalidade;
@@ -38,7 +43,8 @@ public class Envolvido implements Serializable {
 	@OneToOne(mappedBy = "envolvido", cascade = CascadeType.ALL)
 	private RG rg;
 
-	@Transient
+	@ManyToOne
+	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 
 	public Envolvido() {

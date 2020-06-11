@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_endereco")
@@ -26,7 +28,8 @@ public class Endereco implements Serializable {
 	private String estado;
 	private String complemento;
 
-	@Transient
+	@JsonIgnore
+	@OneToMany(mappedBy = "endereco")
 	private List<Envolvido> envolvidos = new ArrayList<>();
 
 	public Endereco() {
@@ -100,7 +103,7 @@ public class Endereco implements Serializable {
 		this.complemento = complemento;
 	}
 
-	public List<Envolvido> getEnvolvido() {
+	public List<Envolvido> getEnvolvidos() {
 		return envolvidos;
 	}
 
