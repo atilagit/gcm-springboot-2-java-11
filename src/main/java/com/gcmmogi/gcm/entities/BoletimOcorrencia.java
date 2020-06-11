@@ -51,13 +51,17 @@ public class BoletimOcorrencia implements Serializable{
 	@JoinColumn(name = "oficial_id")
 	private Oficial oficial;
 	
+	@ManyToOne
+	@JoinColumn(name = "bairro_id")
+	private Bairro bairro;
+	
 	public BoletimOcorrencia() {
 	}
 
 	public BoletimOcorrencia(Long id, Integer numeroDaOcorrencia, Instant data, Instant horaFato, Integer numTalao,
 			Integer viatura, Instant horaDeIrradiacao, Instant horaLocal, Instant primeiroTermino, Instant segundoTermino,
 			Integer kmDeIrradiacao, Integer kmLocal, Integer kmPrimeiroTermino, Integer kmSegundoTermino, String local,
-			String relatorioDaGCM, Oficial oficial) {
+			String relatorioDaGCM, Oficial oficial, Bairro bairro) {
 		super();
 		this.id = id;
 		this.numeroDaOcorrencia = numeroDaOcorrencia;
@@ -76,6 +80,7 @@ public class BoletimOcorrencia implements Serializable{
 		this.local = local;
 		this.relatorioDaGCM = relatorioDaGCM;
 		this.oficial = oficial;
+		this.bairro = bairro;
 	}
 
 	public Long getId() {
@@ -212,6 +217,14 @@ public class BoletimOcorrencia implements Serializable{
 
 	public void setOficial(Oficial oficial) {
 		this.oficial = oficial;
+	}
+	
+	public Bairro getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
 	}
 
 	@Override
