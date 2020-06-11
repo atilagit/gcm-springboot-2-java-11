@@ -15,7 +15,9 @@ import com.gcmmogi.gcm.entities.Envolvido;
 import com.gcmmogi.gcm.entities.Ocorrencia;
 import com.gcmmogi.gcm.entities.Oficial;
 import com.gcmmogi.gcm.entities.RG;
+import com.gcmmogi.gcm.entities.VeiculoAveriguado;
 import com.gcmmogi.gcm.entities.enums.CondicaoDaParte;
+import com.gcmmogi.gcm.entities.enums.Dano;
 import com.gcmmogi.gcm.entities.enums.Posto;
 import com.gcmmogi.gcm.repositories.BairroRepository;
 import com.gcmmogi.gcm.repositories.BoletimOcorrenciaRepository;
@@ -23,6 +25,7 @@ import com.gcmmogi.gcm.repositories.EnderecoRepository;
 import com.gcmmogi.gcm.repositories.EnvolvidoRepository;
 import com.gcmmogi.gcm.repositories.OcorrenciaRepository;
 import com.gcmmogi.gcm.repositories.OficialRepository;
+import com.gcmmogi.gcm.repositories.VeiculoAveriguadoRepository;
 
 @Configuration
 @Profile("test")
@@ -45,6 +48,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private OcorrenciaRepository ocorrenciaRepository;
+	
+	@Autowired
+	private VeiculoAveriguadoRepository veiculoAveriguadoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -84,6 +90,12 @@ public class TestConfig implements CommandLineRunner{
 		Ocorrencia oc2 = new Ocorrencia(null, "A05", "LESÃO CORPORAL");
 		
 		ocorrenciaRepository.saveAll(Arrays.asList(oc1, oc2));
+		
+		VeiculoAveriguado va1 = new VeiculoAveriguado(null, "DRP8D42", "Palio", 2005, "Preto", "00485601956", Dano.GRANDE_MONTA);
+		VeiculoAveriguado va2 = new VeiculoAveriguado(null, "FOR-1904", "Ford/fiesta", 2015, "Vermelho", "00409674956", Dano.PEQUENA_MONTA);
+		VeiculoAveriguado va3 = new VeiculoAveriguado(null, "HMG-4587", "Uno", 2019, "Branco", "00499406756", Dano.PEQUENA_MONTA);
+		
+		veiculoAveriguadoRepository.saveAll(Arrays.asList(va1,va2,va3));
 		
 		BoletimOcorrencia bo1 = new BoletimOcorrencia(null, 4, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 1, 10, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o1, b2, oc2);
 		BoletimOcorrencia bo2 = new BoletimOcorrencia(null, 5, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 2, 11, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o2, b1, oc2);
