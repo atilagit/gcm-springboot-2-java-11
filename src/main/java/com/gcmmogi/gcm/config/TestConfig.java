@@ -103,6 +103,13 @@ public class TestConfig implements CommandLineRunner{
 		
 		oficialRepository.saveAll(Arrays.asList(o1, o2));
 		boletimOcorrenciaRepository.saveAll(Arrays.asList(bo1, bo2, bo3));
+		
+		bo1.getVeiculos().add(va2);
+		bo1.getVeiculos().add(va3);
+		bo2.getVeiculos().add(va1);
+		bo2.getVeiculos().add(va2);
+		
+		boletimOcorrenciaRepository.saveAll(Arrays.asList(bo1, bo2, bo3));
 	}
 	
 	

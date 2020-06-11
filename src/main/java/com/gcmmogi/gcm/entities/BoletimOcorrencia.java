@@ -2,12 +2,16 @@ package com.gcmmogi.gcm.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -15,22 +19,22 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "tb_boletimOcorrencia")
-public class BoletimOcorrencia implements Serializable{
+public class BoletimOcorrencia implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Integer numeroDaOcorrencia;
-	
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant data;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant horaFato;
-	
+
 	private Integer numTalao;
 	private Integer viatura;
-	
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant horaDeIrradiacao;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
@@ -39,33 +43,38 @@ public class BoletimOcorrencia implements Serializable{
 	private Instant primeiroTermino;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant segundoTermino;
-	
+
 	private Integer kmDeIrradiacao;
 	private Integer kmLocal;
 	private Integer kmPrimeiroTermino;
 	private Integer kmSegundoTermino;
 	private String local;
 	private String relatorioDaGCM;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "oficial_id")
 	private Oficial oficial;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "bairro_id")
 	private Bairro bairro;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ocorrencia_id")
 	private Ocorrencia ocorrencia;
-	
+
+	@ManyToMany
+	@JoinTable(name = "tb_boletim_veiculo", joinColumns = @JoinColumn(name = "boletim_id"), inverseJoinColumns = @JoinColumn(name = "veiculo_id"))
+	private Set<VeiculoAveriguado> veiculos = new HashSet<>();
+
 	public BoletimOcorrencia() {
 	}
 
 	public BoletimOcorrencia(Long id, Integer numeroDaOcorrencia, Instant data, Instant horaFato, Integer numTalao,
-			Integer viatura, Instant horaDeIrradiacao, Instant horaLocal, Instant primeiroTermino, Instant segundoTermino,
-			Integer kmDeIrradiacao, Integer kmLocal, Integer kmPrimeiroTermino, Integer kmSegundoTermino, String local,
-			String relatorioDaGCM, Oficial oficial, Bairro bairro, Ocorrencia ocorrencia) {
+			Integer viatura, Instant horaDeIrradiacao, Instant horaLocal, Instant primeiroTermino,
+			Instant segundoTermino, Integer kmDeIrradiacao, Integer kmLocal, Integer kmPrimeiroTermino,
+			Integer kmSegundoTermino, String local, String relatorioDaGCM, Oficial oficial, Bairro bairro,
+			Ocorrencia ocorrencia) {
 		super();
 		this.id = id;
 		this.numeroDaOcorrencia = numeroDaOcorrencia;
@@ -223,7 +232,7 @@ public class BoletimOcorrencia implements Serializable{
 	public void setOficial(Oficial oficial) {
 		this.oficial = oficial;
 	}
-	
+
 	public Bairro getBairro() {
 		return bairro;
 	}
@@ -231,13 +240,17 @@ public class BoletimOcorrencia implements Serializable{
 	public void setBairro(Bairro bairro) {
 		this.bairro = bairro;
 	}
-	
+
 	public Ocorrencia getOcorrencia() {
 		return ocorrencia;
 	}
 
 	public void setOcorrencia(Ocorrencia ocorrencia) {
 		this.ocorrencia = ocorrencia;
+	}
+
+	public Set<VeiculoAveriguado> getVeiculos() {
+		return veiculos;
 	}
 
 	@Override
