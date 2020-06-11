@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "tb_boletimOcorrencia")
+@Table(name = "tb_boletimDeOcorrencia")
 public class BoletimOcorrencia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -59,9 +59,9 @@ public class BoletimOcorrencia implements Serializable {
 	@JoinColumn(name = "bairro_id")
 	private Bairro bairro;
 
-	@ManyToOne
-	@JoinColumn(name = "ocorrencia_id")
-	private Ocorrencia ocorrencia;
+	@ManyToMany
+	@JoinTable(name = "tb_boletim_ocorrencia", joinColumns = @JoinColumn(name = "boletim_id"), inverseJoinColumns = @JoinColumn(name = "ocorrencia_id"))
+	private Set<Ocorrencia> ocorrencias = new HashSet<>();
 
 	@ManyToMany
 	@JoinTable(name = "tb_boletim_veiculo", joinColumns = @JoinColumn(name = "boletim_id"), inverseJoinColumns = @JoinColumn(name = "veiculo_id"))
@@ -73,8 +73,7 @@ public class BoletimOcorrencia implements Serializable {
 	public BoletimOcorrencia(Long id, Integer numeroDaOcorrencia, Instant data, Instant horaFato, Integer numTalao,
 			Integer viatura, Instant horaDeIrradiacao, Instant horaLocal, Instant primeiroTermino,
 			Instant segundoTermino, Integer kmDeIrradiacao, Integer kmLocal, Integer kmPrimeiroTermino,
-			Integer kmSegundoTermino, String local, String relatorioDaGCM, Oficial oficial, Bairro bairro,
-			Ocorrencia ocorrencia) {
+			Integer kmSegundoTermino, String local, String relatorioDaGCM, Oficial oficial, Bairro bairro) {
 		super();
 		this.id = id;
 		this.numeroDaOcorrencia = numeroDaOcorrencia;
@@ -94,7 +93,6 @@ public class BoletimOcorrencia implements Serializable {
 		this.relatorioDaGCM = relatorioDaGCM;
 		this.oficial = oficial;
 		this.bairro = bairro;
-		this.ocorrencia = ocorrencia;
 	}
 
 	public Long getId() {
@@ -240,13 +238,9 @@ public class BoletimOcorrencia implements Serializable {
 	public void setBairro(Bairro bairro) {
 		this.bairro = bairro;
 	}
-
-	public Ocorrencia getOcorrencia() {
-		return ocorrencia;
-	}
-
-	public void setOcorrencia(Ocorrencia ocorrencia) {
-		this.ocorrencia = ocorrencia;
+	
+	public Set<Ocorrencia> getOcorrencias() {
+		return ocorrencias;
 	}
 
 	public Set<VeiculoAveriguado> getVeiculos() {

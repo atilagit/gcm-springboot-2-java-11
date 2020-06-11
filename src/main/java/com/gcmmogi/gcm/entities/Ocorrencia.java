@@ -1,14 +1,14 @@
 package com.gcmmogi.gcm.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,8 +25,8 @@ public class  Ocorrencia implements Serializable{
 	private String naturezaDaOcorrencia;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "ocorrencia")
-	private List<BoletimOcorrencia> boletins = new ArrayList<>();
+	@ManyToMany(mappedBy = "ocorrencias")
+	private Set<BoletimOcorrencia> boletins = new HashSet<>();
 	
 	public Ocorrencia() {
 	}
@@ -62,7 +62,7 @@ public class  Ocorrencia implements Serializable{
 		this.naturezaDaOcorrencia = naturezaDaOcorrencia;
 	}
 
-	public List<BoletimOcorrencia> getBoletins() {
+	public Set<BoletimOcorrencia> getBoletins() {
 		return boletins;
 	}
 

@@ -88,8 +88,9 @@ public class TestConfig implements CommandLineRunner{
 		
 		Ocorrencia oc1 = new Ocorrencia(null, "B03", "TENTATIVA DE FURTO");
 		Ocorrencia oc2 = new Ocorrencia(null, "A05", "LESÃO CORPORAL");
+		Ocorrencia oc3 = new Ocorrencia(null, "C03", "EMBRIAGUEZ");
 		
-		ocorrenciaRepository.saveAll(Arrays.asList(oc1, oc2));
+		ocorrenciaRepository.saveAll(Arrays.asList(oc1, oc2, oc3));
 		
 		VeiculoAveriguado va1 = new VeiculoAveriguado(null, "DRP8D42", "Palio", 2005, "Preto", "00485601956", Dano.GRANDE_MONTA);
 		VeiculoAveriguado va2 = new VeiculoAveriguado(null, "FOR-1904", "Ford/fiesta", 2015, "Vermelho", "00409674956", Dano.PEQUENA_MONTA);
@@ -97,9 +98,9 @@ public class TestConfig implements CommandLineRunner{
 		
 		veiculoAveriguadoRepository.saveAll(Arrays.asList(va1,va2,va3));
 		
-		BoletimOcorrencia bo1 = new BoletimOcorrencia(null, 4, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 1, 10, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o1, b2, oc2);
-		BoletimOcorrencia bo2 = new BoletimOcorrencia(null, 5, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 2, 11, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o2, b1, oc2);
-		BoletimOcorrencia bo3 = new BoletimOcorrencia(null, 6, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 3, 12, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o1, b2, oc1);
+		BoletimOcorrencia bo1 = new BoletimOcorrencia(null, 4, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 1, 10, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o1, b2);
+		BoletimOcorrencia bo2 = new BoletimOcorrencia(null, 5, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 2, 11, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o2, b1);
+		BoletimOcorrencia bo3 = new BoletimOcorrencia(null, 6, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 3, 12, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o1, b2);
 		
 		oficialRepository.saveAll(Arrays.asList(o1, o2));
 		boletimOcorrenciaRepository.saveAll(Arrays.asList(bo1, bo2, bo3));
@@ -108,6 +109,15 @@ public class TestConfig implements CommandLineRunner{
 		bo1.getVeiculos().add(va3);
 		bo2.getVeiculos().add(va1);
 		bo2.getVeiculos().add(va2);
+		
+		bo1.getOcorrencias().add(oc1);
+		bo1.getOcorrencias().add(oc3);
+		bo2.getOcorrencias().add(oc2);
+		bo3.getOcorrencias().add(oc1);
+		bo3.getOcorrencias().add(oc2);
+		bo3.getOcorrencias().add(oc3);
+		
+		
 		
 		boletimOcorrenciaRepository.saveAll(Arrays.asList(bo1, bo2, bo3));
 	}
