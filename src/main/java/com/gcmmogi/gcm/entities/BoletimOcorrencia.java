@@ -66,6 +66,10 @@ public class BoletimOcorrencia implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "tb_boletim_veiculo", joinColumns = @JoinColumn(name = "boletim_id"), inverseJoinColumns = @JoinColumn(name = "veiculo_id"))
 	private Set<VeiculoAveriguado> veiculos = new HashSet<>();
+	
+	@ManyToMany
+	@JoinTable(name = "tb_boletim_envolvido", joinColumns = @JoinColumn(name = "boletim_id"), inverseJoinColumns = @JoinColumn(name = "envolvido_id"))
+	private Set<Envolvido> envolvidos = new HashSet<>();
 
 	public BoletimOcorrencia() {
 	}
@@ -245,6 +249,10 @@ public class BoletimOcorrencia implements Serializable {
 
 	public Set<VeiculoAveriguado> getVeiculos() {
 		return veiculos;
+	}
+	
+	public Set<Envolvido> getEnvolvidos() {
+		return envolvidos;
 	}
 
 	@Override

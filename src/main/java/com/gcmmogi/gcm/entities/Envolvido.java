@@ -2,6 +2,8 @@ package com.gcmmogi.gcm.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,11 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gcmmogi.gcm.entities.enums.CondicaoDaParte;
 
 @Entity
@@ -46,6 +50,10 @@ public class Envolvido implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "envolvidos")
+	private Set<BoletimOcorrencia> boletins = new HashSet<>();
 
 	public Envolvido() {
 	}
@@ -191,6 +199,10 @@ public class Envolvido implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	
+	public Set<BoletimOcorrencia> getBoletins() {
+		return boletins;
 	}
 
 	@Override

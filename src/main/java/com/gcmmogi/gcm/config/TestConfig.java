@@ -106,7 +106,6 @@ public class TestConfig implements CommandLineRunner{
 		boletimOcorrenciaRepository.saveAll(Arrays.asList(bo1, bo2, bo3));
 		
 		bo1.getVeiculos().add(va2);
-		bo1.getVeiculos().add(va3);
 		bo2.getVeiculos().add(va1);
 		bo2.getVeiculos().add(va2);
 		
@@ -117,10 +116,13 @@ public class TestConfig implements CommandLineRunner{
 		bo3.getOcorrencias().add(oc2);
 		bo3.getOcorrencias().add(oc3);
 		
-		
+		bo1.getEnvolvidos().add(env1);
+		bo1.getEnvolvidos().add(env2);
+		bo2.getEnvolvidos().add(env2);
+		bo2.getEnvolvidos().add(env3);
+		bo2.getEnvolvidos().add(env4);
+		bo3.getEnvolvidos().add(env5);
 		
 		boletimOcorrenciaRepository.saveAll(Arrays.asList(bo1, bo2, bo3));
 	}
-	
-	
 }
