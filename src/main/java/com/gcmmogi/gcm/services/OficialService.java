@@ -27,4 +27,8 @@ public class OficialService {
 	public Oficial insert(Oficial obj) {
 		return repository.save(obj);
 	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
 }
