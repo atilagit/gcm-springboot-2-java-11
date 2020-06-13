@@ -23,4 +23,8 @@ public class OficialService {
 		Optional<Oficial> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	public Oficial insert(Oficial obj) {
+		return repository.save(obj);
+	}
 }
