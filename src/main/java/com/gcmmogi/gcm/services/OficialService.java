@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.gcmmogi.gcm.entities.Oficial;
 import com.gcmmogi.gcm.repositories.OficialRepository;
+import com.gcmmogi.gcm.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class OficialService {
@@ -21,7 +22,7 @@ public class OficialService {
 	
 	public Oficial findById(Long id) {
 		Optional<Oficial> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Oficial insert(Oficial obj) {
