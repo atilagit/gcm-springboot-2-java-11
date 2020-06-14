@@ -60,5 +60,6 @@ public class OficialService {
 		entity.setTime(obj.getTime());
 		entity.setViatura(obj.getViatura());
 		entity.setPosto(obj.getPosto());
+		entity.setEmail(obj.getEmail());
 	}
 }

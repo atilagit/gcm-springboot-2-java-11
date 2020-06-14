@@ -30,6 +30,8 @@ public class Oficial implements Serializable{
 	
 	private Integer posto;
 	
+	private String email;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "oficial")
 	private List<BoletimOcorrencia> boletins = new ArrayList<>();
@@ -37,7 +39,7 @@ public class Oficial implements Serializable{
 	public Oficial() {
 	}
 
-	public Oficial(Long id, String login, String senha, String nome, String time, Integer viatura, Posto posto) {
+	public Oficial(Long id, String login, String senha, String nome, String time, Integer viatura, Posto posto, String email) {
 		super();
 		this.id = id;
 		this.login = login;
@@ -46,6 +48,7 @@ public class Oficial implements Serializable{
 		this.time = time;
 		this.viatura = viatura;
 		setPosto(posto);
+		this.email = email;
 	}
 
 	public Long getId() {
@@ -98,6 +101,14 @@ public class Oficial implements Serializable{
 
 	public Posto getPosto() {
 		return Posto.valueOf(posto);
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public void setPosto(Posto posto) {

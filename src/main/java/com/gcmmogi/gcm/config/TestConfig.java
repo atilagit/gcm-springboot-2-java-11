@@ -78,8 +78,8 @@ public class TestConfig implements CommandLineRunner{
 		
 		envolvidoRepository.saveAll(Arrays.asList(env1, env3, env5));
 		
-		Oficial o1 = new Oficial(null, "juca88", "321", "Juca", "Time-B", 6, Posto.EM_CAMPO);
-		Oficial o2 = new Oficial(null, "marco87", "222", "Marco", "Time-C", 8, Posto.ADMINISTRATIVO);
+		Oficial o1 = new Oficial(null, "juca88", "321", "Juca", "Time-B", 6, Posto.EM_CAMPO, "juca@hotmail.com");
+		Oficial o2 = new Oficial(null, "marco87", "222", "Marco", "Time-C", 8, Posto.ADMINISTRATIVO, "marco@gmail.com");
 		
 		Bairro b1 = new Bairro(null, "Aterrado");
 		Bairro b2 = new Bairro(null, "Centro");
