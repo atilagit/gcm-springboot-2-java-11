@@ -52,6 +52,7 @@ public class OficialResource {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Oficial> update(@PathVariable Long id, @RequestBody Oficial obj){
+		obj.setId(id);
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}

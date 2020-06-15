@@ -31,6 +31,7 @@ public class OficialService {
 	}
 	
 	public Oficial insert(Oficial obj) {
+		obj.setId(null);
 		return repository.save(obj);
 	}
 	
