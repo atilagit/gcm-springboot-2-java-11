@@ -1,14 +1,13 @@
 package com.gcmmogi.gcm.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,14 +28,15 @@ public class Endereco implements Serializable {
 	private String complemento;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "endereco")
-	private List<Envolvido> envolvidos = new ArrayList<>();
+	@OneToOne
+	@MapsId
+	private Envolvido envolvido;
 
 	public Endereco() {
 	}
 
 	public Endereco(Long id, String residencia, int numero, String bairro, String cidade, String estado,
-			String complemento) {
+			String complemento, Envolvido envolvido) {
 		super();
 		this.id = id;
 		this.residencia = residencia;
@@ -45,6 +45,7 @@ public class Endereco implements Serializable {
 		this.cidade = cidade;
 		this.estado = estado;
 		this.complemento = complemento;
+		this.envolvido = envolvido;
 	}
 
 	public Long getId() {
@@ -102,9 +103,13 @@ public class Endereco implements Serializable {
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
-
-	public List<Envolvido> getEnvolvidos() {
-		return envolvidos;
+	
+	public Envolvido getEnvolvido() {
+		return envolvido;
+	}
+	
+	public void setEnvolvido(Envolvido envolvido) {
+		this.envolvido = envolvido;
 	}
 
 	@Override

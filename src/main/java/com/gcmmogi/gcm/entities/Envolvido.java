@@ -10,9 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -47,8 +45,7 @@ public class Envolvido implements Serializable {
 	@OneToOne(mappedBy = "envolvido", cascade = CascadeType.ALL)
 	private RG rg;
 
-	@ManyToOne
-	@JoinColumn(name = "endereco_id")
+	@OneToOne(mappedBy = "envolvido", cascade = CascadeType.ALL)
 	private Endereco endereco;
 	
 	@JsonIgnore
