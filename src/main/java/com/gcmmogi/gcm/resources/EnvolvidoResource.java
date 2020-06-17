@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.gcmmogi.gcm.dto.EnvolvidoNovoDTO;
 import com.gcmmogi.gcm.entities.Envolvido;
 import com.gcmmogi.gcm.services.EnvolvidoService;
 
@@ -38,7 +39,8 @@ public class EnvolvidoResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<Envolvido> insert(@RequestBody Envolvido obj) {
+	public ResponseEntity<Envolvido> insert(@RequestBody EnvolvidoNovoDTO objDto) {
+		Envolvido obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
@@ -51,7 +53,8 @@ public class EnvolvidoResource {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Envolvido> update(@PathVariable Long id, @RequestBody Envolvido obj){
+	public ResponseEntity<Envolvido> update(@PathVariable Long id, @RequestBody EnvolvidoNovoDTO objDto) {
+		Envolvido obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);

@@ -57,7 +57,7 @@ public class Envolvido implements Serializable {
 
 	public Envolvido(Long id, CondicaoDaParte condicaoDaParte, Boolean conduzido, String nome, Instant dataNascimento,
 			String pai, String mae, String nacionalidade, String naturalidadeCidade, String naturalidadeEstado,
-			String telefone, String localDeTrabalho, String versaoDoEnvolvido, RG rg, Endereco endereco) {
+			String telefone, String localDeTrabalho, String versaoDoEnvolvido) {
 		super();
 		this.id = id;
 		setCondicaoDaParte(condicaoDaParte);
@@ -72,8 +72,6 @@ public class Envolvido implements Serializable {
 		this.telefone = telefone;
 		this.localDeTrabalho = localDeTrabalho;
 		this.versaoDoEnvolvido = versaoDoEnvolvido;
-		this.rg = rg;
-		this.endereco = endereco;
 	}
 
 	public Long getId() {
@@ -226,5 +224,4 @@ public class Envolvido implements Serializable {
 			return false;
 		return true;
 	}
-
 }

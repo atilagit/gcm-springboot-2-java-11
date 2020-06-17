@@ -7,7 +7,7 @@ public class EnvolvidoNovoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	//Dados do envolvido
-	private Integer condicaoDaParte;
+	private String condicaoDaParte;
 	private Boolean conduzido;
 	private String nome;
 	private Instant dataNascimento;
@@ -36,11 +36,11 @@ public class EnvolvidoNovoDTO implements Serializable {
 	public EnvolvidoNovoDTO() {
 	}
 
-	public Integer getCondicaoDaParte() {
+	public String getCondicaoDaParte() {
 		return condicaoDaParte;
 	}
 
-	public void setCondicaoDaParte(Integer condicaoDaParte) {
+	public void setCondicaoDaParte(String condicaoDaParte) {
 		this.condicaoDaParte = condicaoDaParte;
 	}
 
