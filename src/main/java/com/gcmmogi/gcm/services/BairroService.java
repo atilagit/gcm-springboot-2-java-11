@@ -27,7 +27,7 @@ public class BairroService {
 	
 	public Bairro findById(Long id) {
 		Optional<Bairro> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Bairro insert(Bairro obj) {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.gcmmogi.gcm.entities.BoletimOcorrencia;
 import com.gcmmogi.gcm.repositories.BoletimOcorrenciaRepository;
+import com.gcmmogi.gcm.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class BoletimOcorrenciaService {
@@ -21,6 +22,6 @@ public class BoletimOcorrenciaService {
 	
 	public BoletimOcorrencia findById(Long id) {
 		Optional<BoletimOcorrencia> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 }

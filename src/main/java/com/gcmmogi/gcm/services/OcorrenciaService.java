@@ -27,7 +27,7 @@ public class OcorrenciaService {
 	
 	public Ocorrencia findById(Long id) {
 		Optional<Ocorrencia> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Ocorrencia insert(Ocorrencia obj) {

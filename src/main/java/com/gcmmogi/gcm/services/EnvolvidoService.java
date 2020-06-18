@@ -1,7 +1,6 @@
 package com.gcmmogi.gcm.services;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -32,12 +31,8 @@ public class EnvolvidoService {
 	}
 	
 	public Envolvido findById(Long id) {
-		try {
-			Optional<Envolvido> obj = repository.findById(id);
-			return obj.get();
-		} catch (NoSuchElementException e) {
-			throw new ResourceNotFoundException(id);
-		}
+		Optional<Envolvido> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	@Transactional

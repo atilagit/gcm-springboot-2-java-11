@@ -27,7 +27,7 @@ public class VeiculoAveriguadoService {
 	
 	public VeiculoAveriguado findById(Long id) {
 		Optional<VeiculoAveriguado> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public VeiculoAveriguado insert(VeiculoAveriguado obj) {
