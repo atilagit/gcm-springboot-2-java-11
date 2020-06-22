@@ -71,6 +71,8 @@ public class  Ocorrencia implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((codigoDaOcorrencia == null) ? 0 : codigoDaOcorrencia.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((naturezaDaOcorrencia == null) ? 0 : naturezaDaOcorrencia.hashCode());
 		return result;
 	}
 
@@ -87,6 +89,16 @@ public class  Ocorrencia implements Serializable{
 			if (other.codigoDaOcorrencia != null)
 				return false;
 		} else if (!codigoDaOcorrencia.equals(other.codigoDaOcorrencia))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (naturezaDaOcorrencia == null) {
+			if (other.naturezaDaOcorrencia != null)
+				return false;
+		} else if (!naturezaDaOcorrencia.equals(other.naturezaDaOcorrencia))
 			return false;
 		return true;
 	}

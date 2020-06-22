@@ -247,6 +247,10 @@ public class BoletimOcorrencia implements Serializable {
 		return ocorrencias;
 	}
 
+	public void setOcorrencias(Set<Ocorrencia> ocorrencias) {
+		this.ocorrencias = ocorrencias;
+	}
+
 	public Set<VeiculoAveriguado> getVeiculos() {
 		return veiculos;
 	}

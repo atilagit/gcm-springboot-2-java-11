@@ -4,7 +4,8 @@ public enum Dano {
 
 	PEQUENA_MONTA(1),
 	MEDIA_MONTA(2),
-	GRANDE_MONTA(3);
+	GRANDE_MONTA(3),
+	SEM_DANO(4);
 
 	private int code;
 
