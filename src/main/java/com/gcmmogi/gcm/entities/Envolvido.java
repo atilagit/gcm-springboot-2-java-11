@@ -204,10 +204,21 @@ public class Envolvido implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((condicaoDaParte == null) ? 0 : condicaoDaParte.hashCode());
+		result = prime * result + ((conduzido == null) ? 0 : conduzido.hashCode());
 		result = prime * result + ((dataNascimento == null) ? 0 : dataNascimento.hashCode());
+		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((localDeTrabalho == null) ? 0 : localDeTrabalho.hashCode());
+		result = prime * result + ((mae == null) ? 0 : mae.hashCode());
+		result = prime * result + ((nacionalidade == null) ? 0 : nacionalidade.hashCode());
+		result = prime * result + ((naturalidadeCidade == null) ? 0 : naturalidadeCidade.hashCode());
+		result = prime * result + ((naturalidadeEstado == null) ? 0 : naturalidadeEstado.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((pai == null) ? 0 : pai.hashCode());
 		result = prime * result + ((rg == null) ? 0 : rg.hashCode());
+		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
+		result = prime * result + ((versaoDoEnvolvido == null) ? 0 : versaoDoEnvolvido.hashCode());
 		return result;
 	}
 
@@ -220,25 +231,80 @@ public class Envolvido implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Envolvido other = (Envolvido) obj;
+		if (condicaoDaParte == null) {
+			if (other.condicaoDaParte != null)
+				return false;
+		} else if (!condicaoDaParte.equals(other.condicaoDaParte))
+			return false;
+		if (conduzido == null) {
+			if (other.conduzido != null)
+				return false;
+		} else if (!conduzido.equals(other.conduzido))
+			return false;
 		if (dataNascimento == null) {
 			if (other.dataNascimento != null)
 				return false;
 		} else if (!dataNascimento.equals(other.dataNascimento))
+			return false;
+		if (endereco == null) {
+			if (other.endereco != null)
+				return false;
+		} else if (!endereco.equals(other.endereco))
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (localDeTrabalho == null) {
+			if (other.localDeTrabalho != null)
+				return false;
+		} else if (!localDeTrabalho.equals(other.localDeTrabalho))
+			return false;
+		if (mae == null) {
+			if (other.mae != null)
+				return false;
+		} else if (!mae.equals(other.mae))
+			return false;
+		if (nacionalidade == null) {
+			if (other.nacionalidade != null)
+				return false;
+		} else if (!nacionalidade.equals(other.nacionalidade))
+			return false;
+		if (naturalidadeCidade == null) {
+			if (other.naturalidadeCidade != null)
+				return false;
+		} else if (!naturalidadeCidade.equals(other.naturalidadeCidade))
+			return false;
+		if (naturalidadeEstado == null) {
+			if (other.naturalidadeEstado != null)
+				return false;
+		} else if (!naturalidadeEstado.equals(other.naturalidadeEstado))
+			return false;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
+		if (pai == null) {
+			if (other.pai != null)
+				return false;
+		} else if (!pai.equals(other.pai))
+			return false;
 		if (rg == null) {
 			if (other.rg != null)
 				return false;
 		} else if (!rg.equals(other.rg))
+			return false;
+		if (telefone == null) {
+			if (other.telefone != null)
+				return false;
+		} else if (!telefone.equals(other.telefone))
+			return false;
+		if (versaoDoEnvolvido == null) {
+			if (other.versaoDoEnvolvido != null)
+				return false;
+		} else if (!versaoDoEnvolvido.equals(other.versaoDoEnvolvido))
 			return false;
 		return true;
 	}

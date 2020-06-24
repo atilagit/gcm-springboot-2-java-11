@@ -255,8 +255,16 @@ public class BoletimOcorrencia implements Serializable {
 		return veiculos;
 	}
 	
+	public void setVeiculos(Set<VeiculoAveriguado> veiculos) {
+		this.veiculos = veiculos;
+	}
+
 	public Set<Envolvido> getEnvolvidos() {
 		return envolvidos;
+	}
+	
+	public void setEnvolvidos(Set<Envolvido> envolvidos) {
+		this.envolvidos = envolvidos;
 	}
 
 	@Override

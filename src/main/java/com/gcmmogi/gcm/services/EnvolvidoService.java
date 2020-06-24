@@ -70,6 +70,12 @@ public class EnvolvidoService {
 		env.setEndereco(end);
 		return env;
 	}
+	
+	public EnvolvidoNovoDTO toDTO(Envolvido obj) {
+		CondicaoDaParte condParte = (obj.getCondicaoDaParte()==null) ? CondicaoDaParte.INDEFINIDA : obj.getCondicaoDaParte();
+		EnvolvidoNovoDTO objDto = new EnvolvidoNovoDTO(condParte.toString(), obj.getConduzido(), obj.getNome(), obj.getDataNascimento(), obj.getPai(), obj.getMae(), obj.getNacionalidade(), obj.getNaturalidadeCidade(), obj.getNaturalidadeEstado(), obj.getTelefone(), obj.getLocalDeTrabalho(), obj.getVersaoDoEnvolvido(), obj.getEndereco().getResidencia(), obj.getEndereco().getNumero(), obj.getEndereco().getBairro(), obj.getEndereco().getCidade(), obj.getEndereco().getEstado(), obj.getEndereco().getComplemento(), obj.getRg().getNumeroDoRG(), obj.getRg().getOrgaoExpedidor(), obj.getRg().getEstado());
+		return objDto;
+	}
 
 	private void updateData(Envolvido entity, Envolvido obj) {
 		entity.setCondicaoDaParte(obj.getCondicaoDaParte());

@@ -36,6 +36,37 @@ public class EnvolvidoNovoDTO implements Serializable {
 	public EnvolvidoNovoDTO() {
 	}
 
+	public EnvolvidoNovoDTO(String condicaoDaParte, Boolean conduzido, String nome, Instant dataNascimento, String pai,
+			String mae, String nacionalidade, String naturalidadeCidade, String naturalidadeEstado, String telefone,
+			String localDeTrabalho, String versaoDoEnvolvido, String residencia, int numero, String bairro,
+			String cidade, String estadoEnd, String complemento, String numeroDoRG, String orgaoExpedidor,
+			String estadoRG) {
+		super();
+		this.condicaoDaParte = condicaoDaParte;
+		this.conduzido = conduzido;
+		this.nome = nome;
+		this.dataNascimento = dataNascimento;
+		this.pai = pai;
+		this.mae = mae;
+		this.nacionalidade = nacionalidade;
+		this.naturalidadeCidade = naturalidadeCidade;
+		this.naturalidadeEstado = naturalidadeEstado;
+		this.telefone = telefone;
+		this.localDeTrabalho = localDeTrabalho;
+		this.versaoDoEnvolvido = versaoDoEnvolvido;
+		this.residencia = residencia;
+		this.numero = numero;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estadoEnd = estadoEnd;
+		this.complemento = complemento;
+		this.numeroDoRG = numeroDoRG;
+		this.orgaoExpedidor = orgaoExpedidor;
+		this.estadoRG = estadoRG;
+	}
+
+
+
 	public String getCondicaoDaParte() {
 		return condicaoDaParte;
 	}

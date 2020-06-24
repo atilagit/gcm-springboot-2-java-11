@@ -61,20 +61,28 @@ public class TestConfig implements CommandLineRunner{
 		envolvidoRepository.saveAll(Arrays.asList(env1, env2, env3, env4, env5));
 		
 		RG rg1 = new RG(null, "41.106.298-11", "SSP", "SP", env1);
+		RG rg2 = new RG(null, null, null, null, env2);
 		RG rg3 = new RG(null, "43.207.298-13", "SSP", "SP", env3);
+		RG rg4 = new RG(null, "", null, "", env4);
 		RG rg5 = new RG(null, "45.308.298-15", "SSP", "SP", env5);
 		
 		Endereco end1 = new Endereco(null, "Teste residencia1", 21, "Teste bairro1", "Teste Cidade1", "SP", "Teste complemento1", env1);
-		Endereco end2 = new Endereco(null, "Teste residencia2", 22, "Teste bairro2", "Teste Cidade2", "MG", "Teste complemento2", env2);
-		Endereco end3 = new Endereco(null, "Teste residencia3", 23, "Teste bairro3", "Teste Cidade3", "PA", "Teste complemento3", env4);
+		Endereco end2 = new Endereco(null, null, null, null, null, null, null, env2);
+		Endereco end3 = new Endereco(null, "Teste residencia3", 23, "Teste bairro3", "Teste Cidade3", "PA", "Teste complemento3", env3);
+		Endereco end4 = new Endereco(null, "", 24, "", null, null, "Teste complemento4", env4);
+		Endereco end5 = new Endereco(null, "Teste residencia3", 25, "Teste bairro3", "Teste Cidade5", "RS", "Teste complemento5", env5);
 		
 		env1.setRg(rg1);
+		env2.setRg(rg2);
 		env3.setRg(rg3);
+		env4.setRg(rg4);
 		env5.setRg(rg5);
 		
 		env1.setEndereco(end1);
 		env2.setEndereco(end2);
-		env4.setEndereco(end3);
+		env3.setEndereco(end3);
+		env4.setEndereco(end4);
+		env5.setEndereco(end5);
 		
 		envolvidoRepository.saveAll(Arrays.asList(env1, env2, env3, env4, env5));
 		
@@ -86,8 +94,8 @@ public class TestConfig implements CommandLineRunner{
 		
 		bairroRepository.saveAll(Arrays.asList(b1,b2));
 		
-		Ocorrencia oc1 = new Ocorrencia(null, "B03", "TENTATIVA DE FURTO");
-		Ocorrencia oc2 = new Ocorrencia(null, "A05", "LESÃO CORPORAL");
+		Ocorrencia oc1 = new Ocorrencia(null, "A05", "LESÃO CORPORAL");
+		Ocorrencia oc2 = new Ocorrencia(null, "B03", "TENTATIVA DE FURTO");
 		Ocorrencia oc3 = new Ocorrencia(null, "C03", "EMBRIAGUEZ");
 		
 		ocorrenciaRepository.saveAll(Arrays.asList(oc1, oc2, oc3));
@@ -107,7 +115,7 @@ public class TestConfig implements CommandLineRunner{
 		
 		bo1.getVeiculos().add(va2);
 		bo2.getVeiculos().add(va1);
-		bo2.getVeiculos().add(va2);
+		bo2.getVeiculos().add(va3);
 		
 		bo1.getOcorrencias().add(oc1);
 		bo1.getOcorrencias().add(oc3);
@@ -118,7 +126,6 @@ public class TestConfig implements CommandLineRunner{
 		
 		bo1.getEnvolvidos().add(env1);
 		bo1.getEnvolvidos().add(env2);
-		bo2.getEnvolvidos().add(env2);
 		bo2.getEnvolvidos().add(env3);
 		bo2.getEnvolvidos().add(env4);
 		bo3.getEnvolvidos().add(env5);

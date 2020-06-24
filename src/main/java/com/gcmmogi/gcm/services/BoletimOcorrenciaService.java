@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +55,12 @@ public class BoletimOcorrenciaService {
 	@Autowired
 	private OficialService oficialService;
 	
+	@Autowired
+	private EnvolvidoService envolvidoService;
+	
+	@Autowired
+	private VeiculoAveriguadoService veiculoAveriguadoService;
+	
 	public List<BoletimOcorrencia> findAll(){
 		return repository.findAll();
 	}
@@ -78,20 +86,9 @@ public class BoletimOcorrenciaService {
 			va.setDano((va.getDano()==null) ? Dano.SEM_DANO : va.getDano());
 		}
 		
-		Set<Ocorrencia> ocorrenciasOriundasDoBD = new HashSet<>();
-		for (Ocorrencia o : obj.getOcorrencias()) {
-			ocorrenciasOriundasDoBD.add(ocorrenciaService.findById(o.getId()));
-		}
-		obj.setOcorrencias(ocorrenciasOriundasDoBD);
-		for (Ocorrencia o : ocorrenciasOriundasDoBD) {
-			o.getBoletins().add(obj);
-		}
-		
-		obj.setBairro(bairroService.findById(obj.getBairro().getId()));
-		obj.getBairro().getBoletins().add(obj);
-		
-		obj.setOficial(oficialService.findById(obj.getOficial().getId()));
-		obj.getOficial().getBoletins().add(obj);
+		preencheEAssociaNovaOcorrencia(obj);
+		preencheEAssociaNovoBairro(obj);
+		preencheEAssociaNovoOficial(obj);
 				
 		obj = repository.save(obj);
 		envolvidoRepository.saveAll(obj.getEnvolvidos());
@@ -101,5 +98,131 @@ public class BoletimOcorrenciaService {
 		oficialRepository.save(obj.getOficial());
 		
 		return obj;
+	}
+	
+	@Transactional
+	public BoletimOcorrencia update(Long id, BoletimOcorrencia obj) {
+		try {
+			BoletimOcorrencia entity = repository.getOne(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		}catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
+
+	private void updateData(BoletimOcorrencia entity, BoletimOcorrencia obj) {
+		entity.setNumeroDaOcorrencia(obj.getNumeroDaOcorrencia());
+		entity.setData(obj.getData());
+		entity.setHoraFato(obj.getHoraFato());
+		entity.setNumTalao(obj.getNumTalao());
+		entity.setViatura(obj.getViatura());
+		entity.setHoraDeIrradiacao(obj.getHoraDeIrradiacao());
+		entity.setHoraLocal(obj.getHoraLocal());
+		entity.setPrimeiroTermino(obj.getPrimeiroTermino());
+		entity.setSegundoTermino(obj.getSegundoTermino());
+		entity.setKmDeIrradiacao(obj.getKmDeIrradiacao());
+		entity.setKmLocal(obj.getKmLocal());
+		entity.setKmPrimeiroTermino(obj.getKmPrimeiroTermino());
+		entity.setKmSegundoTermino(obj.getKmSegundoTermino());
+		entity.setLocal(obj.getLocal());
+		entity.setRelatorioDaGCM(obj.getRelatorioDaGCM());
+		
+		if(obj.getOcorrencias() != null) {
+			entity.getOcorrencias().forEach(x -> x.getBoletins().remove(obj));
+			ocorrenciaRepository.saveAll(entity.getOcorrencias());
+			entity.getOcorrencias().addAll(obj.getOcorrencias()); //addAll(other) - união: adiciona no conjunto os elementos do outro conjunto, sem repetição
+			entity.getOcorrencias().retainAll(obj.getOcorrencias()); //retainAll(other) - interseção: remove do conjunto os elementos não contidos em other
+			obj.setOcorrencias(entity.getOcorrencias());
+			preencheEAssociaNovaOcorrencia(obj);
+			entity.setOcorrencias(obj.getOcorrencias());
+		}
+		
+		if(obj.getBairro() != null) {
+			entity.getBairro().getBoletins().remove(obj);
+			bairroRepository.save(entity.getBairro());
+			preencheEAssociaNovoBairro(obj);
+			entity.setBairro(obj.getBairro());
+		}
+		
+		if(obj.getOficial() != null) {
+			entity.getOficial().getBoletins().remove(obj);
+			oficialRepository.save(entity.getOficial());
+			preencheEAssociaNovoOficial(obj);
+			entity.setOficial(obj.getOficial());
+		}
+		
+		if(obj.getEnvolvidos() != null) {
+			entity.getEnvolvidos().forEach(x -> x.getBoletins().remove(obj));
+			envolvidoRepository.saveAll(entity.getEnvolvidos());
+			entity.getEnvolvidos().addAll(obj.getEnvolvidos()); //addAll(other) - união: adiciona no conjunto os elementos do outro conjunto, sem repetição
+			entity.getEnvolvidos().retainAll(obj.getEnvolvidos()); //retainAll(other) - interseção: remove do conjunto os elementos não contidos em other
+			obj.setEnvolvidos(entity.getEnvolvidos());
+			preencheEAssociaNovosEnvolvidos(obj);
+			entity.setEnvolvidos(obj.getEnvolvidos());
+		}
+		
+		if(obj.getVeiculos() != null) {
+			entity.getVeiculos().forEach(x -> x.getBoletins().remove(obj));
+			veiculoAveriguadoRepository.saveAll(entity.getVeiculos());
+			entity.getVeiculos().addAll(obj.getVeiculos()); //addAll(other) - união: adiciona no conjunto os elementos do outro conjunto, sem repetição
+			entity.getVeiculos().retainAll(obj.getVeiculos()); //retainAll(other) - interseção: remove do conjunto os elementos não contidos em other
+			obj.setVeiculos(entity.getVeiculos());
+			preencheEAssociaNovosVeiculos(obj);
+			entity.setVeiculos(obj.getVeiculos());
+		}
+	}
+
+	private void preencheEAssociaNovaOcorrencia(BoletimOcorrencia obj) {
+		Set<Ocorrencia> ocorrenciasOriundasDoBD = new HashSet<>();
+		for (Ocorrencia o : obj.getOcorrencias()) {
+			ocorrenciasOriundasDoBD.add(ocorrenciaService.findById(o.getId()));
+		}
+		obj.setOcorrencias(ocorrenciasOriundasDoBD);
+		for (Ocorrencia o : ocorrenciasOriundasDoBD) {
+			o.getBoletins().add(obj);
+		}
+	}
+
+	private void preencheEAssociaNovoBairro(BoletimOcorrencia obj) {
+		obj.setBairro(bairroService.findById(obj.getBairro().getId()));
+		obj.getBairro().getBoletins().add(obj);
+	}
+	
+	private void preencheEAssociaNovoOficial(BoletimOcorrencia obj) {
+		obj.setOficial(oficialService.findById(obj.getOficial().getId()));
+		obj.getOficial().getBoletins().add(obj);
+	}
+	
+	private void preencheEAssociaNovosEnvolvidos(BoletimOcorrencia obj) {
+		Set<Envolvido> envolvidos = new HashSet<>();
+		for (Envolvido e : obj.getEnvolvidos()) {
+			if(e.getId() == null) {
+				envolvidos.add(envolvidoService.insert(envolvidoService.fromDTO(envolvidoService.toDTO(e))));
+			}else {
+				envolvidoService.update(e.getId(), e);
+				envolvidos.add(envolvidoService.findById(e.getId()));
+			}
+		}
+		obj.setEnvolvidos(envolvidos);
+		for (Envolvido e : envolvidos) {
+			e.getBoletins().add(obj);
+		}
+	}
+	
+	private void preencheEAssociaNovosVeiculos(BoletimOcorrencia obj) {
+		Set<VeiculoAveriguado> veiculos = new HashSet<>();
+		for (VeiculoAveriguado v : obj.getVeiculos()) {
+			if(v.getId() == null) {
+				veiculos.add(veiculoAveriguadoService.insert(v));
+			}else {
+				veiculoAveriguadoService.update(v.getId(), v);
+				veiculos.add(veiculoAveriguadoService.findById(v.getId()));
+			}
+		}
+		obj.setVeiculos(veiculos);
+		for (VeiculoAveriguado v : veiculos) {
+			v.getBoletins().add(obj);
+		}
 	}
 }
