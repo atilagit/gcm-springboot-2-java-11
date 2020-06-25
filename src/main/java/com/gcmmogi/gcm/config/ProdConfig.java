@@ -30,16 +30,17 @@ public class ProdConfig implements CommandLineRunner{
 	private OcorrenciaRepository ocorrenciaRepository;
 
 	@Override
-	public void run(String... args) throws Exception {
-		
-		Oficial o1 = new Oficial(null, "juca88", "321", "Juca", "Time-B", 6, Posto.EM_CAMPO, "juca@hotmail.com");
-		Oficial o2 = new Oficial(null, "marco87", "222", "Marco", "Time-C", 8, Posto.ADMINISTRATIVO, "marco@gmail.com");
-		oficialRepository.saveAll(Arrays.asList(o1, o2));
-
-		List<Bairro> bairros = ConfiguracaoBD.populaBairros();
-		bairroRepository.saveAll(bairros);
-		
-		List<Ocorrencia> ocorrencias = ConfiguracaoBD.populaOcorrencias();
-		ocorrenciaRepository.saveAll(ocorrencias);
+	public void run(String... args) throws Exception {	
+		if(bairroRepository.count()==0 && oficialRepository.count()==0) {
+			Oficial o1 = new Oficial(null, "juca88", "321", "Juca", "Time-B", 6, Posto.EM_CAMPO, "juca@hotmail.com");
+			Oficial o2 = new Oficial(null, "marco87", "222", "Marco", "Time-C", 8, Posto.ADMINISTRATIVO, "marco@gmail.com");
+			oficialRepository.saveAll(Arrays.asList(o1, o2));
+			
+			List<Bairro> bairros = ConfiguracaoBD.populaBairros();
+			bairroRepository.saveAll(bairros);
+			
+			List<Ocorrencia> ocorrencias = ConfiguracaoBD.populaOcorrencias();
+			ocorrenciaRepository.saveAll(ocorrencias);
+		}
 	}
 }
