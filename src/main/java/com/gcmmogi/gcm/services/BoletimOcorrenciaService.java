@@ -112,6 +112,12 @@ public class BoletimOcorrenciaService {
 	}
 
 	private void updateData(BoletimOcorrencia entity, BoletimOcorrencia obj) {
+		Set<Long> idsDeEnvolvidos = new HashSet<>();
+		entity.getEnvolvidos().forEach(x -> idsDeEnvolvidos.add(x.getId()));
+		
+		Set<Long> idsDeVeiculos = new HashSet<>();
+		entity.getVeiculos().forEach(x -> idsDeVeiculos.add(x.getId()));
+		
 		entity.setNumeroDaOcorrencia(obj.getNumeroDaOcorrencia());
 		entity.setData(obj.getData());
 		entity.setHoraFato(obj.getHoraFato());
@@ -158,7 +164,7 @@ public class BoletimOcorrenciaService {
 			entity.getEnvolvidos().addAll(obj.getEnvolvidos()); //addAll(other) - união: adiciona no conjunto os elementos do outro conjunto, sem repetição
 			entity.getEnvolvidos().retainAll(obj.getEnvolvidos()); //retainAll(other) - interseção: remove do conjunto os elementos não contidos em other
 			obj.setEnvolvidos(entity.getEnvolvidos());
-			preencheEAssociaNovosEnvolvidos(obj);
+			preencheEAssociaNovosEnvolvidos(obj, idsDeEnvolvidos);
 			entity.setEnvolvidos(obj.getEnvolvidos());
 		}
 		
@@ -168,7 +174,7 @@ public class BoletimOcorrenciaService {
 			entity.getVeiculos().addAll(obj.getVeiculos()); //addAll(other) - união: adiciona no conjunto os elementos do outro conjunto, sem repetição
 			entity.getVeiculos().retainAll(obj.getVeiculos()); //retainAll(other) - interseção: remove do conjunto os elementos não contidos em other
 			obj.setVeiculos(entity.getVeiculos());
-			preencheEAssociaNovosVeiculos(obj);
+			preencheEAssociaNovosVeiculos(obj, idsDeVeiculos);
 			entity.setVeiculos(obj.getVeiculos());
 		}
 	}
@@ -194,14 +200,14 @@ public class BoletimOcorrenciaService {
 		obj.getOficial().getBoletins().add(obj);
 	}
 	
-	private void preencheEAssociaNovosEnvolvidos(BoletimOcorrencia obj) {
+	private void preencheEAssociaNovosEnvolvidos(BoletimOcorrencia obj, Set<Long> ids) {
 		Set<Envolvido> envolvidos = new HashSet<>();
 		for (Envolvido e : obj.getEnvolvidos()) {
-			if(e.getId() == null) {
-				envolvidos.add(envolvidoService.insert(envolvidoService.fromDTO(envolvidoService.toDTO(e))));
-			}else {
+			if(e.getId() != null && ids.contains(e.getId())) {
 				envolvidoService.update(e.getId(), e);
 				envolvidos.add(envolvidoService.findById(e.getId()));
+			}else {
+				envolvidos.add(envolvidoService.insert(envolvidoService.fromDTO(envolvidoService.toDTO(e))));
 			}
 		}
 		obj.setEnvolvidos(envolvidos);
@@ -210,14 +216,14 @@ public class BoletimOcorrenciaService {
 		}
 	}
 	
-	private void preencheEAssociaNovosVeiculos(BoletimOcorrencia obj) {
+	private void preencheEAssociaNovosVeiculos(BoletimOcorrencia obj, Set<Long> ids) {
 		Set<VeiculoAveriguado> veiculos = new HashSet<>();
 		for (VeiculoAveriguado v : obj.getVeiculos()) {
-			if(v.getId() == null) {
-				veiculos.add(veiculoAveriguadoService.insert(v));
-			}else {
+			if(v.getId() != null && ids.contains(v.getId())) {
 				veiculoAveriguadoService.update(v.getId(), v);
 				veiculos.add(veiculoAveriguadoService.findById(v.getId()));
+			}else {
+				veiculos.add(veiculoAveriguadoService.insert(v));
 			}
 		}
 		obj.setVeiculos(veiculos);
