@@ -27,7 +27,7 @@ import com.gcmmogi.gcm.repositories.OficialRepository;
 import com.gcmmogi.gcm.repositories.VeiculoAveriguadoRepository;
 
 @Configuration
-@Profile("prod")
+@Profile("test")
 public class TestConfig implements CommandLineRunner{
 	
 	@Autowired

@@ -17,7 +17,7 @@ import com.gcmmogi.gcm.repositories.OcorrenciaRepository;
 import com.gcmmogi.gcm.repositories.OficialRepository;
 
 @Configuration
-@Profile("test")
+@Profile("prod")
 public class ProdConfig implements CommandLineRunner{
 	
 	@Autowired
