@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.gcmmogi.gcm.dto.BairroDTO;
+import com.gcmmogi.gcm.dto.OcorrenciaDTO;
 import com.gcmmogi.gcm.entities.Bairro;
 import com.gcmmogi.gcm.services.BairroService;
 
@@ -36,6 +37,12 @@ public class BairroResource {
 	public ResponseEntity<Bairro> findById(@PathVariable Long id){
 		Bairro obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/indicadores/{id}")
+	public ResponseEntity<List<OcorrenciaDTO>> indicadoresPorBairro(@PathVariable Long id){
+		List<OcorrenciaDTO> list = service.indicadoresPorBairro(id);
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(path = "/top5-com-mais-boletins")

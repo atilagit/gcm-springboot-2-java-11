@@ -107,21 +107,21 @@ public class TestConfig implements CommandLineRunner{
 		
 		bairroRepository.saveAll(Arrays.asList(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15));
 		
-		Ocorrencia oc1 =new Ocorrencia(null, "A01", " HOMICÍDIO");
-		Ocorrencia oc2 =new Ocorrencia(null, "A03", " TENTATIVA DE HOMICÍDIO");
-		Ocorrencia oc3 =new Ocorrencia(null, "A04", " ABORTO");
-		Ocorrencia oc4 =new Ocorrencia(null, "A05", " LESÃO CORPORAL");
-		Ocorrencia oc5 =new Ocorrencia(null, "A06", " INFANTICÍDIO");
-		Ocorrencia oc6 =new Ocorrencia(null, "A07", " PERCLITAÇÃO DE VIDA");
-		Ocorrencia oc7 =new Ocorrencia(null, "A08", " ABANDONA DE INCAPAZ");
-		Ocorrencia oc8 =new Ocorrencia(null, "A09", " OMISSÃO DE SOCORRO");
-		Ocorrencia oc9 =new Ocorrencia(null, "A10", " AMEAÇA");
-		Ocorrencia oc10 =new Ocorrencia(null, "A11", " SEQUESTRO / CÁRCERE PRIVADO");
-		Ocorrencia oc11 =new Ocorrencia(null, "A12", " VIOLAÇÃO DE DOMICÍLIO");
-		Ocorrencia oc12 =new Ocorrencia(null, "A13", " MAUS TRATOS");
-		Ocorrencia oc13 =new Ocorrencia(null, "A14", " RACISMO");
-		Ocorrencia oc14 =new Ocorrencia(null, "B01", " FURTO");
-		Ocorrencia oc15 =new Ocorrencia(null, "B03", " TENTATIVA DE FURTO");
+		Ocorrencia oc1 =new Ocorrencia(null, "A01", "HOMICÍDIO");
+		Ocorrencia oc2 =new Ocorrencia(null, "A03", "TENTATIVA DE HOMICÍDIO");
+		Ocorrencia oc3 =new Ocorrencia(null, "A04", "ABORTO");
+		Ocorrencia oc4 =new Ocorrencia(null, "A05", "LESÃO CORPORAL");
+		Ocorrencia oc5 =new Ocorrencia(null, "A06", "INFANTICÍDIO");
+		Ocorrencia oc6 =new Ocorrencia(null, "A07", "PERCLITAÇÃO DE VIDA");
+		Ocorrencia oc7 =new Ocorrencia(null, "A08", "ABANDONA DE INCAPAZ");
+		Ocorrencia oc8 =new Ocorrencia(null, "A09", "OMISSÃO DE SOCORRO");
+		Ocorrencia oc9 =new Ocorrencia(null, "A10", "AMEAÇA");
+		Ocorrencia oc10 =new Ocorrencia(null, "A11", "SEQUESTRO / CÁRCERE PRIVADO");
+		Ocorrencia oc11 =new Ocorrencia(null, "A12", "VIOLAÇÃO DE DOMICÍLIO");
+		Ocorrencia oc12 =new Ocorrencia(null, "A13", "MAUS TRATOS");
+		Ocorrencia oc13 =new Ocorrencia(null, "A14", "RACISMO");
+		Ocorrencia oc14 =new Ocorrencia(null, "B01", "FURTO");
+		Ocorrencia oc15 =new Ocorrencia(null, "B03", "TENTATIVA DE FURTO");
 		
 		ocorrenciaRepository.saveAll(Arrays.asList(oc1,oc2,oc3,oc4,oc5,oc6,oc7,oc8,oc9,oc10,oc11,oc12,oc13,oc14,oc15));
 		
@@ -145,12 +145,16 @@ public class TestConfig implements CommandLineRunner{
 		bo2.getVeiculos().add(va1);
 		bo2.getVeiculos().add(va3);
 		
-		bo1.getOcorrencias().add(oc1);
-		bo1.getOcorrencias().add(oc3);
-		bo2.getOcorrencias().add(oc2);
-		bo3.getOcorrencias().add(oc1);
-		bo3.getOcorrencias().add(oc2);
-		bo3.getOcorrencias().add(oc3);
+		bo1.getOcorrencias().add(oc1); //"HOMICÍDIO" 				-> centro
+		bo1.getOcorrencias().add(oc3); //"ABORTO"					-> centro
+		bo2.getOcorrencias().add(oc2); //"TENTATIVA DE HOMICÍDIO"	-> ATERRADO
+		bo3.getOcorrencias().add(oc1); //"HOMICÍDIO"				-> centro
+		bo3.getOcorrencias().add(oc2); //"TENTATIVA DE HOMICÍDIO"	-> centro
+		bo3.getOcorrencias().add(oc3); //"ABORTO"					-> centro
+		bo4.getOcorrencias().add(oc4); //"LESÃO CORPORAL"			-> centro
+		bo4.getOcorrencias().add(oc2); //"TENTATIVA DE HOMICÍDIO"	-> centro
+		bo5.getOcorrencias().add(oc15); //"TENTATIVA DE FURTO"		-> ATERRADO
+		bo6.getOcorrencias().add(oc15); //"TENTATIVA DE FURTO"		-> Distrito Industrial
 		
 		bo1.getEnvolvidos().add(env1);
 		bo1.getEnvolvidos().add(env2);
@@ -158,6 +162,6 @@ public class TestConfig implements CommandLineRunner{
 		bo2.getEnvolvidos().add(env4);
 		bo3.getEnvolvidos().add(env5);
 		
-		boletimOcorrenciaRepository.saveAll(Arrays.asList(bo1, bo2, bo3));
+		boletimOcorrenciaRepository.saveAll(Arrays.asList(bo1, bo2, bo3, bo4, bo5, bo6));
 	}
 }
