@@ -89,16 +89,41 @@ public class TestConfig implements CommandLineRunner{
 		Oficial o1 = new Oficial(null, "juca88", "321", "Juca", "Time-B", 6, Posto.EM_CAMPO, "juca@hotmail.com");
 		Oficial o2 = new Oficial(null, "marco87", "222", "Marco", "Time-C", 8, Posto.ADMINISTRATIVO, "marco@gmail.com");
 		
-		Bairro b1 = new Bairro(null, "Aterrado");
-		Bairro b2 = new Bairro(null, "Centro");
+		Bairro b1 = new Bairro (null, "Aterrado");
+		Bairro b2 = new Bairro (null, "Bairro Boa");
+		Bairro b3 = new Bairro (null, "Cdhu");
+		Bairro b4 = new Bairro (null, "Centro");
+		Bairro b5 = new Bairro (null, "Chácara Ipe");
+		Bairro b6 = new Bairro (null, "Chácara São Marcelo");
+		Bairro b7 = new Bairro (null, "Chácara Sol Nascente");
+		Bairro b8 = new Bairro (null, "Cob Brasil Cerealist");
+		Bairro b9 = new Bairro (null, "Comeca Piteiras");
+		Bairro b10 = new Bairro (null, "Condomínio Morro Vermelho");
+		Bairro b11 = new Bairro (null, "Condomínio Santa Úrsula");
+		Bairro b12 = new Bairro (null, "Conjunto Habitacional Jardim Europa");
+		Bairro b13 = new Bairro (null, "Conjunto Residencial Anselmo Lopes Bueno");
+		Bairro b14 = new Bairro (null, "Distrito Industrial");
+		Bairro b15 = new Bairro (null, "Distrito Industrial II");
 		
-		bairroRepository.saveAll(Arrays.asList(b1,b2));
+		bairroRepository.saveAll(Arrays.asList(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15));
 		
-		Ocorrencia oc1 = new Ocorrencia(null, "A05", "LESÃO CORPORAL");
-		Ocorrencia oc2 = new Ocorrencia(null, "B03", "TENTATIVA DE FURTO");
-		Ocorrencia oc3 = new Ocorrencia(null, "C03", "EMBRIAGUEZ");
+		Ocorrencia oc1 =new Ocorrencia(null, "A01", " HOMICÍDIO");
+		Ocorrencia oc2 =new Ocorrencia(null, "A03", " TENTATIVA DE HOMICÍDIO");
+		Ocorrencia oc3 =new Ocorrencia(null, "A04", " ABORTO");
+		Ocorrencia oc4 =new Ocorrencia(null, "A05", " LESÃO CORPORAL");
+		Ocorrencia oc5 =new Ocorrencia(null, "A06", " INFANTICÍDIO");
+		Ocorrencia oc6 =new Ocorrencia(null, "A07", " PERCLITAÇÃO DE VIDA");
+		Ocorrencia oc7 =new Ocorrencia(null, "A08", " ABANDONA DE INCAPAZ");
+		Ocorrencia oc8 =new Ocorrencia(null, "A09", " OMISSÃO DE SOCORRO");
+		Ocorrencia oc9 =new Ocorrencia(null, "A10", " AMEAÇA");
+		Ocorrencia oc10 =new Ocorrencia(null, "A11", " SEQUESTRO / CÁRCERE PRIVADO");
+		Ocorrencia oc11 =new Ocorrencia(null, "A12", " VIOLAÇÃO DE DOMICÍLIO");
+		Ocorrencia oc12 =new Ocorrencia(null, "A13", " MAUS TRATOS");
+		Ocorrencia oc13 =new Ocorrencia(null, "A14", " RACISMO");
+		Ocorrencia oc14 =new Ocorrencia(null, "B01", " FURTO");
+		Ocorrencia oc15 =new Ocorrencia(null, "B03", " TENTATIVA DE FURTO");
 		
-		ocorrenciaRepository.saveAll(Arrays.asList(oc1, oc2, oc3));
+		ocorrenciaRepository.saveAll(Arrays.asList(oc1,oc2,oc3,oc4,oc5,oc6,oc7,oc8,oc9,oc10,oc11,oc12,oc13,oc14,oc15));
 		
 		VeiculoAveriguado va1 = new VeiculoAveriguado(null, "DRP8D42", "Palio", 2005, "Preto", "00485601956", Dano.GRANDE_MONTA);
 		VeiculoAveriguado va2 = new VeiculoAveriguado(null, "FOR-1904", "Ford/fiesta", 2015, "Vermelho", "00409674956", Dano.PEQUENA_MONTA);
@@ -106,12 +131,15 @@ public class TestConfig implements CommandLineRunner{
 		
 		veiculoAveriguadoRepository.saveAll(Arrays.asList(va1,va2,va3));
 		
-		BoletimOcorrencia bo1 = new BoletimOcorrencia(null, 4, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 1, 10, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o1, b2);
+		BoletimOcorrencia bo1 = new BoletimOcorrencia(null, 4, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 1, 10, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o1, b4);
 		BoletimOcorrencia bo2 = new BoletimOcorrencia(null, 5, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 2, 11, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o2, b1);
-		BoletimOcorrencia bo3 = new BoletimOcorrencia(null, 6, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 3, 12, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o1, b2);
+		BoletimOcorrencia bo3 = new BoletimOcorrencia(null, 6, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 3, 12, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o1, b4);
+		BoletimOcorrencia bo4 = new BoletimOcorrencia(null, 7, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 3, 12, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o1, b4);
+		BoletimOcorrencia bo5 = new BoletimOcorrencia(null, 4, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 1, 10, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o1, b1);
+		BoletimOcorrencia bo6 = new BoletimOcorrencia(null, 5, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 2, 11, Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), Instant.parse("2020-06-20T19:53:07Z"), 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o2, b14);
 		
 		oficialRepository.saveAll(Arrays.asList(o1, o2));
-		boletimOcorrenciaRepository.saveAll(Arrays.asList(bo1, bo2, bo3));
+		boletimOcorrenciaRepository.saveAll(Arrays.asList(bo1, bo2, bo3, bo4, bo5, bo6));
 		
 		bo1.getVeiculos().add(va2);
 		bo2.getVeiculos().add(va1);
