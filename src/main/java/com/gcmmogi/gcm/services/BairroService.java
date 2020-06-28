@@ -14,7 +14,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.gcmmogi.gcm.dto.BairroDTO;
+import com.gcmmogi.gcm.dto.BairroTopDTO;
 import com.gcmmogi.gcm.dto.OcorrenciaDTO;
 import com.gcmmogi.gcm.entities.Bairro;
 import com.gcmmogi.gcm.entities.BoletimOcorrencia;
@@ -67,23 +67,23 @@ public class BairroService {
 		}
 	}
 	
-	public List<OcorrenciaDTO> indicadoresPorBairro(Long id) { //todasOcorrencasDoBairro
-		Integer quant = 3;
+	public List<OcorrenciaDTO> indicadoresPorBairro(Long id) { 
+		Integer top = 3; //o top indica quantos elementos a lista vai retornar
 		Bairro bairro = findById(id);
 		List<Ocorrencia> todasOcorrenciasComRepetição = todasOcorrencias(bairro);
 		Integer totalDeOcorrencias = todasOcorrenciasComRepetição.size();
 		Map<Ocorrencia, Integer> map = deListParaMap(todasOcorrenciasComRepetição);
 		List<OcorrenciaDTO> list = deMapParaListDto(map, totalDeOcorrencias);
 		list.sort((oc1,oc2) -> oc2.getQuantidade() - oc1.getQuantidade());
-		list.removeIf(x -> list.indexOf(x) > quant-1);
+		list.removeIf(x -> list.indexOf(x) > top-1);
 		return list;
 	}
 
-	public List<BairroDTO> topBairrosComMaisBO(){
-		Integer quant = 5;
+	public List<BairroTopDTO> topBairrosComMaisBO(){
+		Integer top = 5;
 		List<Bairro> todosBairros = repository.findAll();
 		todosBairros.sort((b1,b2) -> b2.getBoletins().size() - b1.getBoletins().size());
-		todosBairros.removeIf(x -> todosBairros.indexOf(x) > quant-1);
+		todosBairros.removeIf(x -> todosBairros.indexOf(x) > top-1);
 		return bairrostoDTO(todosBairros);
 	}
 
@@ -125,13 +125,13 @@ public class BairroService {
 		return ocorrenciasSemRepeticao;
 	}
 	
-	public List<BairroDTO> bairrostoDTO(List<Bairro> obj) {
+	public List<BairroTopDTO> bairrostoDTO(List<Bairro> obj) {
 		Long totalDeBO = boletimrepository.count();
-		List<BairroDTO> bairrosDTO = new ArrayList<>();
+		List<BairroTopDTO> bairrosDTO = new ArrayList<>();
 		for (Bairro b : obj) {
 			Long quantidadeDeBOdoBairro = (long) b.getBoletins().size();
 			Double percentual = Double.parseDouble(String.format(Locale.US, "%.1f", ((quantidadeDeBOdoBairro.doubleValue() / totalDeBO.doubleValue()) * 100)));
-			BairroDTO bairroDTO = new BairroDTO(b.getId(), b.getNome(), quantidadeDeBOdoBairro, percentual);
+			BairroTopDTO bairroDTO = new BairroTopDTO(b.getId(), b.getNome(), quantidadeDeBOdoBairro, percentual);
 			bairrosDTO.add(bairroDTO);
 		}
 		return bairrosDTO;

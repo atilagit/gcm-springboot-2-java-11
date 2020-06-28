@@ -155,6 +155,7 @@ public class TestConfig implements CommandLineRunner{
 		bo4.getOcorrencias().add(oc2); //"TENTATIVA DE HOMICÍDIO"	-> centro
 		bo5.getOcorrencias().add(oc15); //"TENTATIVA DE FURTO"		-> ATERRADO
 		bo6.getOcorrencias().add(oc15); //"TENTATIVA DE FURTO"		-> Distrito Industrial
+		bo6.getOcorrencias().add(oc2); //"TENTATIVA DE HOMICÍDIO"	-> Distrito Industrial
 		
 		bo1.getEnvolvidos().add(env1);
 		bo1.getEnvolvidos().add(env2);

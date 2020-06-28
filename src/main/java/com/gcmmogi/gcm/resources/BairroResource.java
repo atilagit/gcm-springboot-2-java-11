@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.gcmmogi.gcm.dto.BairroDTO;
+import com.gcmmogi.gcm.dto.BairroTopDTO;
 import com.gcmmogi.gcm.dto.OcorrenciaDTO;
 import com.gcmmogi.gcm.entities.Bairro;
 import com.gcmmogi.gcm.services.BairroService;
@@ -46,8 +46,8 @@ public class BairroResource {
 	}
 	
 	@GetMapping(path = "/top5-com-mais-boletins")
-	public ResponseEntity<List<BairroDTO>> topBairroComMaisBO(){
-		List<BairroDTO> list = service.topBairrosComMaisBO();
+	public ResponseEntity<List<BairroTopDTO>> topBairroComMaisBO(){
+		List<BairroTopDTO> list = service.topBairrosComMaisBO();
 		return ResponseEntity.ok().body(list);
 	}
 	

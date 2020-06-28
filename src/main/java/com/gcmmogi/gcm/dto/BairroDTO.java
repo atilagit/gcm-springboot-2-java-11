@@ -5,28 +5,18 @@ import java.io.Serializable;
 public class BairroDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
 	private String nome;
-	private Long quantidadeDeBO;
+	private Integer quantidade;
 	private Double percentual;
 	
 	public BairroDTO() {
 	}
 
-	public BairroDTO(Long id, String nome, Long quantidadeDeBO, Double percentual) {
+	public BairroDTO(String nome, Integer quantidade, Double percentual) {
 		super();
-		this.id = id;
 		this.nome = nome;
-		this.quantidadeDeBO = quantidadeDeBO;
+		this.quantidade = quantidade;
 		this.percentual = percentual;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getNome() {
@@ -37,12 +27,12 @@ public class BairroDTO implements Serializable {
 		this.nome = nome;
 	}
 
-	public Long getQuantidadeDeBO() {
-		return quantidadeDeBO;
+	public Integer getQuantidade() {
+		return quantidade;
 	}
 
-	public void setQuantidadeDeBO(Long quantidadeDeBO) {
-		this.quantidadeDeBO = quantidadeDeBO;
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	public Double getPercentual() {

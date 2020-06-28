@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.gcmmogi.gcm.dto.BairroDTO;
 import com.gcmmogi.gcm.entities.Ocorrencia;
 import com.gcmmogi.gcm.services.OcorrenciaService;
 
@@ -35,6 +36,12 @@ public class OcorrenciaResource {
 	public ResponseEntity<Ocorrencia> findById(@PathVariable Long id){
 		Ocorrencia obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/indicadores/{id}")
+	public ResponseEntity<List<BairroDTO>> indicadoresPorBairro(@PathVariable Long id){
+		List<BairroDTO> list = service.indicadoresPorOcorrencia(id);
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@PostMapping
