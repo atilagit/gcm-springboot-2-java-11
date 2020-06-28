@@ -1,7 +1,6 @@
 package com.gcmmogi.gcm.dto;
 
 import java.io.Serializable;
-import java.time.Instant;
 
 public class EnvolvidoNovoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -10,7 +9,9 @@ public class EnvolvidoNovoDTO implements Serializable {
 	private String condicaoDaParte;
 	private Boolean conduzido;
 	private String nome;
-	private Instant dataNascimento;
+	
+	private String dataNascimento;
+	
 	private String pai;
 	private String mae;
 	private String nacionalidade;
@@ -36,7 +37,7 @@ public class EnvolvidoNovoDTO implements Serializable {
 	public EnvolvidoNovoDTO() {
 	}
 
-	public EnvolvidoNovoDTO(String condicaoDaParte, Boolean conduzido, String nome, Instant dataNascimento, String pai,
+	public EnvolvidoNovoDTO(String condicaoDaParte, Boolean conduzido, String nome, String dataNascimento, String pai,
 			String mae, String nacionalidade, String naturalidadeCidade, String naturalidadeEstado, String telefone,
 			String localDeTrabalho, String versaoDoEnvolvido, String residencia, int numero, String bairro,
 			String cidade, String estadoEnd, String complemento, String numeroDoRG, String orgaoExpedidor,
@@ -91,11 +92,11 @@ public class EnvolvidoNovoDTO implements Serializable {
 		this.nome = nome;
 	}
 
-	public Instant getDataNascimento() {
+	public String getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Instant dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

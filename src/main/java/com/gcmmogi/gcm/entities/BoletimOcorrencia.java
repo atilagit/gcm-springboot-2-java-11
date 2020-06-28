@@ -1,7 +1,6 @@
 package com.gcmmogi.gcm.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,21 +27,17 @@ public class BoletimOcorrencia implements Serializable {
 	private Integer numeroDaOcorrencia;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant data;
+	private String data;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant horaFato;
+	private String horaFato;
 
 	private Integer numTalao;
 	private Integer viatura;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant horaDeIrradiacao;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant horaLocal;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant primeiroTermino;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant segundoTermino;
+	private String horaDeIrradiacao;
+	private String horaLocal;
+	private String primeiroTermino;
+	private String segundoTermino;
 
 	private Integer kmDeIrradiacao;
 	private Integer kmLocal;
@@ -74,9 +69,9 @@ public class BoletimOcorrencia implements Serializable {
 	public BoletimOcorrencia() {
 	}
 
-	public BoletimOcorrencia(Long id, Integer numeroDaOcorrencia, Instant data, Instant horaFato, Integer numTalao,
-			Integer viatura, Instant horaDeIrradiacao, Instant horaLocal, Instant primeiroTermino,
-			Instant segundoTermino, Integer kmDeIrradiacao, Integer kmLocal, Integer kmPrimeiroTermino,
+	public BoletimOcorrencia(Long id, Integer numeroDaOcorrencia, String data, String horaFato, Integer numTalao,
+			Integer viatura, String horaDeIrradiacao, String horaLocal, String primeiroTermino,
+			String segundoTermino, Integer kmDeIrradiacao, Integer kmLocal, Integer kmPrimeiroTermino,
 			Integer kmSegundoTermino, String local, String relatorioDaGCM, Oficial oficial, Bairro bairro) {
 		super();
 		this.id = id;
@@ -115,19 +110,19 @@ public class BoletimOcorrencia implements Serializable {
 		this.numeroDaOcorrencia = numeroDaOcorrencia;
 	}
 
-	public Instant getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(Instant data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
-	public Instant getHoraFato() {
+	public String getHoraFato() {
 		return horaFato;
 	}
 
-	public void setHoraFato(Instant horaFato) {
+	public void setHoraFato(String horaFato) {
 		this.horaFato = horaFato;
 	}
 
@@ -147,35 +142,35 @@ public class BoletimOcorrencia implements Serializable {
 		this.viatura = viatura;
 	}
 
-	public Instant getHoraDeIrradiacao() {
+	public String getHoraDeIrradiacao() {
 		return horaDeIrradiacao;
 	}
 
-	public void setHoraDeIrradiacao(Instant horaDeIrradiacao) {
+	public void setHoraDeIrradiacao(String horaDeIrradiacao) {
 		this.horaDeIrradiacao = horaDeIrradiacao;
 	}
 
-	public Instant getHoraLocal() {
+	public String getHoraLocal() {
 		return horaLocal;
 	}
 
-	public void setHoraLocal(Instant horaLocal) {
+	public void setHoraLocal(String horaLocal) {
 		this.horaLocal = horaLocal;
 	}
 
-	public Instant getPrimeiroTermino() {
+	public String getPrimeiroTermino() {
 		return primeiroTermino;
 	}
 
-	public void setPrimeiroTermino(Instant primeiroTermino) {
+	public void setPrimeiroTermino(String primeiroTermino) {
 		this.primeiroTermino = primeiroTermino;
 	}
 
-	public Instant getSegundoTermino() {
+	public String getSegundoTermino() {
 		return segundoTermino;
 	}
 
-	public void setSegundoTermino(Instant segundoTermino) {
+	public void setSegundoTermino(String segundoTermino) {
 		this.segundoTermino = segundoTermino;
 	}
 

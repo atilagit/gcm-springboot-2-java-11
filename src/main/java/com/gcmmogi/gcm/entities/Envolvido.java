@@ -1,7 +1,6 @@
 package com.gcmmogi.gcm.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gcmmogi.gcm.entities.enums.CondicaoDaParte;
 
@@ -30,8 +28,7 @@ public class Envolvido implements Serializable {
 	private Boolean conduzido;
 	private String nome;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant dataNascimento;
+	private String dataNascimento;
 	
 	private String pai;
 	private String mae;
@@ -55,7 +52,7 @@ public class Envolvido implements Serializable {
 	public Envolvido() {
 	}
 
-	public Envolvido(Long id, CondicaoDaParte condicaoDaParte, Boolean conduzido, String nome, Instant dataNascimento,
+	public Envolvido(Long id, CondicaoDaParte condicaoDaParte, Boolean conduzido, String nome, String dataNascimento,
 			String pai, String mae, String nacionalidade, String naturalidadeCidade, String naturalidadeEstado,
 			String telefone, String localDeTrabalho, String versaoDoEnvolvido) {
 		super();
@@ -108,11 +105,11 @@ public class Envolvido implements Serializable {
 		this.nome = nome;
 	}
 
-	public Instant getDataNascimento() {
+	public String getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Instant dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
