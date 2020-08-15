@@ -2,9 +2,15 @@ package com.gcmmogi.gcm.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,7 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gcmmogi.gcm.entities.enums.Posto;
+import com.gcmmogi.gcm.entities.enums.Perfil;
 
 @Entity
 @Table(name = "tb_oficial")
@@ -27,19 +33,21 @@ public class Oficial implements Serializable{
 	private String nome;
 	private String time;
 	private Integer viatura;
-	
-	private Integer posto;
-	
 	private String email;
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "oficial")
 	private List<BoletimOcorrencia> boletins = new ArrayList<>();
 	
 	public Oficial() {
+		addPerfil(Perfil.EM_CAMPO);
 	}
 
-	public Oficial(Long id, String login, String senha, String nome, String time, Integer viatura, Posto posto, String email) {
+	public Oficial(Long id, String login, String senha, String nome, String time, Integer viatura, String email, Set<Perfil> perfis) {
 		super();
 		this.id = id;
 		this.login = login;
@@ -47,8 +55,11 @@ public class Oficial implements Serializable{
 		this.nome = nome;
 		this.time = time;
 		this.viatura = viatura;
-		setPosto(posto);
 		this.email = email;
+		addPerfil(Perfil.EM_CAMPO);
+		for(Perfil p : perfis) {
+			addPerfil(p);
+		}
 	}
 
 	public Long getId() {
@@ -99,10 +110,6 @@ public class Oficial implements Serializable{
 		this.viatura = viatura;
 	}
 
-	public Posto getPosto() {
-		return Posto.valueOf(posto);
-	}
-	
 	public String getEmail() {
 		return email;
 	}
@@ -111,9 +118,17 @@ public class Oficial implements Serializable{
 		this.email = email;
 	}
 
-	public void setPosto(Posto posto) {
-		if(posto != null) {
-			this.posto = posto.getCode();
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.valueOf(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCode());
+	}
+	
+	public void setPerfis(Set<Perfil> perfis) {
+		for (Perfil p : perfis) {
+			addPerfil(p);
 		}
 	}
 	

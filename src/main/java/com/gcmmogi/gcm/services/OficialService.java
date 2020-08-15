@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.gcmmogi.gcm.services.exceptions.DatabaseException;
 import com.gcmmogi.gcm.entities.Oficial;
+import com.gcmmogi.gcm.entities.enums.Perfil;
 import com.gcmmogi.gcm.repositories.OficialRepository;
 import com.gcmmogi.gcm.services.exceptions.ResourceNotFoundException;
 
@@ -65,7 +66,11 @@ public class OficialService {
 		entity.setNome(obj.getNome());
 		entity.setTime(obj.getTime());
 		entity.setViatura(obj.getViatura());
-		entity.setPosto(obj.getPosto());
 		entity.setEmail(obj.getEmail());
+		entity.getPerfis().clear();
+		entity.getPerfis().add(Perfil.EM_CAMPO);
+		for (Perfil p : obj.getPerfis()) {
+			entity.addPerfil(p);
+		}
 	}
 }

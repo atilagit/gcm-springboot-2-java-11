@@ -1,17 +1,20 @@
 package com.gcmmogi.gcm.config;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.gcmmogi.gcm.entities.Bairro;
 import com.gcmmogi.gcm.entities.Ocorrencia;
 import com.gcmmogi.gcm.entities.Oficial;
-import com.gcmmogi.gcm.entities.enums.Posto;
+import com.gcmmogi.gcm.entities.enums.Perfil;
 import com.gcmmogi.gcm.repositories.BairroRepository;
 import com.gcmmogi.gcm.repositories.OcorrenciaRepository;
 import com.gcmmogi.gcm.repositories.OficialRepository;
@@ -19,6 +22,9 @@ import com.gcmmogi.gcm.repositories.OficialRepository;
 @Configuration
 @Profile("prod")
 public class ProdConfig implements CommandLineRunner{
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	@Autowired
 	private OficialRepository oficialRepository;
@@ -32,8 +38,12 @@ public class ProdConfig implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {	
 		if(bairroRepository.count()==0 && oficialRepository.count()==0) {
-			Oficial o1 = new Oficial(null, "juca88", "321", "Juca", "Time-B", 6, Posto.EM_CAMPO, "juca@hotmail.com");
-			Oficial o2 = new Oficial(null, "marco87", "222", "Marco", "Time-C", 8, Posto.ADMINISTRATIVO, "marco@gmail.com");
+			Set<Perfil> perfilSimples = new HashSet<>();
+			perfilSimples.add(Perfil.EM_CAMPO);
+			Set<Perfil> perfilAdm = new HashSet<>();
+			perfilAdm.addAll(Arrays.asList(Perfil.EM_CAMPO, Perfil.ADMINISTRATIVO));
+			Oficial o1 = new Oficial(null, "juca88", pe.encode("321"), "Juca", "Time-B", 6, "juca@hotmail.com", perfilSimples);
+			Oficial o2 = new Oficial(null, "marco87", pe.encode("222"), "Marco", "Time-C", 8, "marco@gmail.com", perfilAdm);
 			oficialRepository.saveAll(Arrays.asList(o1, o2));
 			
 			List<Bairro> bairros = ConfiguracaoBD.populaBairros();
