@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.gcmmogi.gcm.entities.Bairro;
 import com.gcmmogi.gcm.entities.BoletimOcorrencia;
@@ -28,6 +29,9 @@ import com.gcmmogi.gcm.repositories.VeiculoAveriguadoRepository;
 @Configuration
 @Profile("test")
 public class TestConfig implements CommandLineRunner{
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	@Autowired
 	private OficialRepository oficialRepository;
@@ -85,8 +89,8 @@ public class TestConfig implements CommandLineRunner{
 		
 		envolvidoRepository.saveAll(Arrays.asList(env1, env2, env3, env4, env5));
 		
-		Oficial o1 = new Oficial(null, "juca88", "321", "Juca", "Time-B", 6, Posto.EM_CAMPO, "juca@hotmail.com");
-		Oficial o2 = new Oficial(null, "marco87", "222", "Marco", "Time-C", 8, Posto.ADMINISTRATIVO, "marco@gmail.com");
+		Oficial o1 = new Oficial(null, "juca88", pe.encode("321"), "Juca", "Time-B", 6, Posto.EM_CAMPO, "juca@hotmail.com");
+		Oficial o2 = new Oficial(null, "marco87", pe.encode("222"), "Marco", "Time-C", 8, Posto.ADMINISTRATIVO, "marco@gmail.com");
 		
 		Bairro b1 = new Bairro (null, "Aterrado");
 		Bairro b2 = new Bairro (null, "Bairro Boa");

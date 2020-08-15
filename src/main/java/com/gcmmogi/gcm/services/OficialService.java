@@ -8,6 +8,7 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gcmmogi.gcm.services.exceptions.DatabaseException;
@@ -17,6 +18,9 @@ import com.gcmmogi.gcm.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class OficialService {
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	@Autowired
 	private OficialRepository repository;
@@ -32,6 +36,7 @@ public class OficialService {
 	
 	public Oficial insert(Oficial obj) {
 		obj.setId(null);
+		obj.setSenha(pe.encode(obj.getSenha()));
 		return repository.save(obj);
 	}
 	

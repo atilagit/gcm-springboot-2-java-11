@@ -23,7 +23,7 @@ public class Oficial implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String login;
-	private String senha;
+	private String senha;	
 	private String nome;
 	private String time;
 	private Integer viatura;
