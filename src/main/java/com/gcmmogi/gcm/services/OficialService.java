@@ -11,10 +11,12 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.gcmmogi.gcm.services.exceptions.DatabaseException;
 import com.gcmmogi.gcm.entities.Oficial;
 import com.gcmmogi.gcm.entities.enums.Perfil;
 import com.gcmmogi.gcm.repositories.OficialRepository;
+import com.gcmmogi.gcm.security.UserSS;
+import com.gcmmogi.gcm.services.exceptions.AuthorizationException;
+import com.gcmmogi.gcm.services.exceptions.DatabaseException;
 import com.gcmmogi.gcm.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -30,7 +32,12 @@ public class OficialService {
 		return repository.findAll();
 	}
 	
+	
 	public Oficial findById(Long id) {
+		UserSS user = UserService.authenticated();
+		if(user==null || !user.hasRole(Perfil.ADMINISTRATIVO) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
 		Optional<Oficial> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
