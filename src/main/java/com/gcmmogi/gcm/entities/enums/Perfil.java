@@ -3,7 +3,7 @@ package com.gcmmogi.gcm.entities.enums;
 public enum Perfil {
 
 	EM_CAMPO(1, "ROLE_EM_CAMPO"), 
-	ADMINISTRATIVO(2, "ROLE_CLIENTE");
+	ADMINISTRATIVO(2, "ROLE_ADMIN");
 
 	private Integer code;
 	private String descricao;

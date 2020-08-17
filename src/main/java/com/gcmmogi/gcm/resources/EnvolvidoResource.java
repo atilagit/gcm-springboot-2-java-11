@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,18 +27,21 @@ public class EnvolvidoResource {
 	@Autowired
 	private EnvolvidoService service;
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping
 	public ResponseEntity<List<Envolvido>> findAll(){
 		List<Envolvido> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Envolvido> findById(@PathVariable Long id){
 		Envolvido obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Envolvido> insert(@RequestBody EnvolvidoNovoDTO objDto) {
 		Envolvido obj = service.fromDTO(objDto);
@@ -46,12 +50,14 @@ public class EnvolvidoResource {
 		return ResponseEntity.created(uri).body(obj);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Envolvido> update(@PathVariable Long id, @RequestBody EnvolvidoNovoDTO objDto) {
 		Envolvido obj = service.fromDTO(objDto);
