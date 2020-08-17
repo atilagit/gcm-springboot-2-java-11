@@ -17,12 +17,15 @@ import com.gcmmogi.gcm.entities.Ocorrencia;
 import com.gcmmogi.gcm.entities.VeiculoAveriguado;
 import com.gcmmogi.gcm.entities.enums.CondicaoDaParte;
 import com.gcmmogi.gcm.entities.enums.Dano;
+import com.gcmmogi.gcm.entities.enums.Perfil;
 import com.gcmmogi.gcm.repositories.BairroRepository;
 import com.gcmmogi.gcm.repositories.BoletimOcorrenciaRepository;
 import com.gcmmogi.gcm.repositories.EnvolvidoRepository;
 import com.gcmmogi.gcm.repositories.OcorrenciaRepository;
 import com.gcmmogi.gcm.repositories.OficialRepository;
 import com.gcmmogi.gcm.repositories.VeiculoAveriguadoRepository;
+import com.gcmmogi.gcm.security.UserSS;
+import com.gcmmogi.gcm.services.exceptions.AuthorizationException;
 import com.gcmmogi.gcm.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -61,13 +64,25 @@ public class BoletimOcorrenciaService {
 	@Autowired
 	private VeiculoAveriguadoService veiculoAveriguadoService;
 	
+	//UserSS user = UserService.authenticated();
+	
 	public List<BoletimOcorrencia> findAll(){
 		return repository.findAll();
 	}
 	
+	public List<BoletimOcorrencia> meusBoletins(){
+		UserSS user = UserService.authenticated();
+		if(user==null) throw new AuthorizationException("Acesso negado");
+		return repository.findByOficial(oficialService.findById(user.getId()));
+	}
+	
 	public BoletimOcorrencia findById(Long id) {
-		Optional<BoletimOcorrencia> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		UserSS user = UserService.authenticated();
+		if(esteBoletimPertenceAoUsuario(id) || user.hasRole(Perfil.ADMINISTRATIVO)) {
+			Optional<BoletimOcorrencia> obj = repository.findById(id);
+			return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		}
+		throw new AuthorizationException("Acesso negado");
 	}
 	
 	@Transactional
@@ -104,6 +119,7 @@ public class BoletimOcorrenciaService {
 	public BoletimOcorrencia update(Long id, BoletimOcorrencia obj) {
 		try {
 			BoletimOcorrencia entity = repository.getOne(id);
+			if(!esteBoletimPertenceAoUsuario(id)) throw new AuthorizationException("Acesso negado");
 			updateData(entity, obj);
 			return repository.save(entity);
 		}catch (EntityNotFoundException e) {
@@ -230,5 +246,11 @@ public class BoletimOcorrenciaService {
 		for (VeiculoAveriguado v : veiculos) {
 			v.getBoletins().add(obj);
 		}
+	}
+		
+	private boolean esteBoletimPertenceAoUsuario(Long idDoBoletim) {
+		UserSS user = UserService.authenticated();
+		Optional<BoletimOcorrencia> obj = repository.findById(idDoBoletim);
+		return obj.get().getOficial().getId().equals(user.getId());
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +25,16 @@ public class BoletimOcorrenciaResource {
 	@Autowired
 	private BoletimOcorrenciaService service;
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping
 	public ResponseEntity<List<BoletimOcorrencia>> findAll(){
 		List<BoletimOcorrencia> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@GetMapping(value = "/meus-boletins")
+	public ResponseEntity<List<BoletimOcorrencia>> meusBoletins(){
+		List<BoletimOcorrencia> list = service.meusBoletins();
 		return ResponseEntity.ok().body(list);
 	}
 	
