@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,7 +74,8 @@ public class BoletimOcorrenciaService {
 	public List<BoletimOcorrencia> meusBoletins(){
 		UserSS user = UserService.authenticated();
 		if(user==null) throw new AuthorizationException("Acesso negado");
-		return repository.findByOficial(oficialService.findById(user.getId()));
+		Sort sort = Sort.by("id").descending();
+		return repository.findFirst2ByOficial(oficialService.findById(user.getId()), sort);
 	}
 	
 	public BoletimOcorrencia findById(Long id) {
