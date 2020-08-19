@@ -38,6 +38,12 @@ public class OficialResource {
 		Oficial obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@GetMapping(value = "/meus-dados")
+	public ResponseEntity<Oficial> meusDados() {
+		Oficial obj = service.meusDados();
+		return ResponseEntity.ok().body(obj);
+	}
 
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping

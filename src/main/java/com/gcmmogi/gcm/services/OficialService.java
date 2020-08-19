@@ -42,6 +42,15 @@ public class OficialService {
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
+	public Oficial meusDados() {
+		UserSS user = UserService.authenticated();
+		if(user==null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		Optional<Oficial> obj = repository.findById(user.getId());
+		return obj.orElseThrow(() -> new ResourceNotFoundException(user.getId()));
+	}
+	
 	public Oficial insert(Oficial obj) {
 		obj.setId(null);
 		obj.setSenha(pe.encode(obj.getSenha()));
