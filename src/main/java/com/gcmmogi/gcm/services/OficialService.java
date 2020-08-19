@@ -59,6 +59,10 @@ public class OficialService {
 	}
 	
 	public Oficial update(Long id, Oficial obj) {
+		UserSS user = UserService.authenticated();
+		if(user==null || !user.hasRole(Perfil.ADMINISTRATIVO) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
 		try {
 			Oficial entity = repository.getOne(id);
 			updateData(entity, obj);
@@ -69,11 +73,10 @@ public class OficialService {
 	}
 
 	private void updateData(Oficial entity, Oficial obj) {
-		entity.setLogin(obj.getLogin());
+		//entity.setLogin(obj.getLogin());
 		entity.setNome(obj.getNome());
 		entity.setTime(obj.getTime());
 		entity.setViatura(obj.getViatura());
-		entity.setEmail(obj.getEmail());
 		entity.getPerfis().clear();
 		entity.getPerfis().add(Perfil.EM_CAMPO);
 		for (Perfil p : obj.getPerfis()) {

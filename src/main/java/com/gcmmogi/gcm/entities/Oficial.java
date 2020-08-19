@@ -28,6 +28,7 @@ public class Oficial implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@JsonIgnore
 	private String login;
 	private String senha;	
 	private String nome;
