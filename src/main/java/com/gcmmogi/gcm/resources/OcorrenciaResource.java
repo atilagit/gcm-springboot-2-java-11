@@ -45,7 +45,6 @@ public class OcorrenciaResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Ocorrencia> insert(@RequestBody Ocorrencia obj) {
 		obj = service.insert(obj);
@@ -53,7 +52,6 @@ public class OcorrenciaResource {
 		return ResponseEntity.created(uri).body(obj);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.delete(id);
