@@ -79,8 +79,7 @@ public class BoletimOcorrenciaService {
 	}
 	
 	public BoletimOcorrencia findById(Long id) {
-		UserSS user = UserService.authenticated();
-		if(esteBoletimPertenceAoUsuario(id) || user.hasRole(Perfil.ADMINISTRATIVO)) {
+		if(esteBoletimPertenceAoUsuario(id) || esteUsuarioEhAdministrador()) {
 			Optional<BoletimOcorrencia> obj = repository.findById(id);
 			return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 		}
@@ -119,9 +118,11 @@ public class BoletimOcorrenciaService {
 	
 	@Transactional
 	public BoletimOcorrencia update(Long id, BoletimOcorrencia obj) {
+		if(!esteBoletimPertenceAoUsuario(id) && !esteUsuarioEhAdministrador()) 
+			throw new AuthorizationException("Acesso negado");
+		
 		try {
 			BoletimOcorrencia entity = repository.getOne(id);
-			if(!esteBoletimPertenceAoUsuario(id)) throw new AuthorizationException("Acesso negado");
 			updateData(entity, obj);
 			return repository.save(entity);
 		}catch (EntityNotFoundException e) {
@@ -169,7 +170,7 @@ public class BoletimOcorrenciaService {
 			entity.setBairro(obj.getBairro());
 		}
 		
-		if(obj.getOficial() != null) {
+		if(obj.getOficial() != null && esteUsuarioEhAdministrador()) {
 			entity.getOficial().getBoletins().remove(obj);
 			oficialRepository.save(entity.getOficial());
 			preencheEAssociaNovoOficial(obj);
@@ -254,5 +255,10 @@ public class BoletimOcorrenciaService {
 		UserSS user = UserService.authenticated();
 		Optional<BoletimOcorrencia> obj = repository.findById(idDoBoletim);
 		return obj.get().getOficial().getId().equals(user.getId());
+	}
+	
+	private boolean esteUsuarioEhAdministrador() {
+		UserSS user = UserService.authenticated();
+		return user.hasRole(Perfil.ADMINISTRATIVO);
 	}
 }
