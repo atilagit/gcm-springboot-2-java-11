@@ -286,4 +286,26 @@ public class BoletimOcorrencia implements Serializable {
 			return false;
 		return true;
 	}
+
+	public String ToStringOcorrencias() {
+		String ocorrenciasEmTexto = "";
+		if(!ocorrencias.isEmpty()) {
+			for (Ocorrencia o : ocorrencias) {
+				ocorrenciasEmTexto += o + " - ";
+			}
+			ocorrenciasEmTexto = ocorrenciasEmTexto.substring(0, ocorrenciasEmTexto.lastIndexOf(" ") - 2);
+		}
+		return ocorrenciasEmTexto;
+	}
+
+	public String toStringEnvolvidos() {
+		String envolvidosEmTexto = "";
+		if(!envolvidos.isEmpty()) {
+			for (Envolvido e : envolvidos) {
+				envolvidosEmTexto += e + " - ";
+			}
+			envolvidosEmTexto = envolvidosEmTexto.substring(0, envolvidosEmTexto.lastIndexOf(" ") - 2);
+		}
+		return envolvidosEmTexto;
+	}
 }

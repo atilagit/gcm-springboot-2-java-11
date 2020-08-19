@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.gcmmogi.gcm.dto.MeusBoletinsDTO;
 import com.gcmmogi.gcm.entities.BoletimOcorrencia;
 import com.gcmmogi.gcm.services.BoletimOcorrenciaService;
 
@@ -33,8 +34,8 @@ public class BoletimOcorrenciaResource {
 	}
 	
 	@GetMapping(value = "/meus-boletins")
-	public ResponseEntity<List<BoletimOcorrencia>> meusBoletins(){
-		List<BoletimOcorrencia> list = service.meusBoletins();
+	public ResponseEntity<List<MeusBoletinsDTO>> meusBoletins(){
+		List<MeusBoletinsDTO> list = service.meusBoletins();
 		return ResponseEntity.ok().body(list);
 	}
 	

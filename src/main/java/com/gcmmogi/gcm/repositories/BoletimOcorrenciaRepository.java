@@ -12,5 +12,5 @@ import com.gcmmogi.gcm.entities.Oficial;
 public interface BoletimOcorrenciaRepository extends JpaRepository<BoletimOcorrencia, Long>{
 	
 	@Transactional(readOnly=true)
-	List<BoletimOcorrencia> findFirst2ByOficial(Oficial oficial, Sort sort);
+	List<BoletimOcorrencia> findFirst10ByOficial(Oficial oficial, Sort sort);
 }

@@ -305,4 +305,11 @@ public class Envolvido implements Serializable {
 			return false;
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		
+		int index = nome.indexOf(" ");
+		return nome.substring(0,index) + "(" + CondicaoDaParte.valueOf(condicaoDaParte) + ")";
+	}
 }

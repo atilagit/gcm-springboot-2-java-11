@@ -1,5 +1,6 @@
 package com.gcmmogi.gcm.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gcmmogi.gcm.dto.MeusBoletinsDTO;
 import com.gcmmogi.gcm.entities.BoletimOcorrencia;
 import com.gcmmogi.gcm.entities.Envolvido;
 import com.gcmmogi.gcm.entities.Ocorrencia;
@@ -71,13 +73,15 @@ public class BoletimOcorrenciaService {
 		return repository.findAll();
 	}
 	
-	public List<BoletimOcorrencia> meusBoletins(){
+	public List<MeusBoletinsDTO> meusBoletins(){
 		UserSS user = UserService.authenticated();
 		if(user==null) throw new AuthorizationException("Acesso negado");
 		Sort sort = Sort.by("id").descending();
-		return repository.findFirst2ByOficial(oficialService.findById(user.getId()), sort);
+		List<BoletimOcorrencia> list = repository.findFirst10ByOficial(oficialService.findById(user.getId()), sort);
+		return deBoletimParaMeusBoletinsDto(list);
 	}
 	
+
 	public BoletimOcorrencia findById(Long id) {
 		if(esteBoletimPertenceAoUsuario(id) || esteUsuarioEhAdministrador()) {
 			Optional<BoletimOcorrencia> obj = repository.findById(id);
@@ -260,5 +264,18 @@ public class BoletimOcorrenciaService {
 	private boolean esteUsuarioEhAdministrador() {
 		UserSS user = UserService.authenticated();
 		return user.hasRole(Perfil.ADMINISTRATIVO);
+	}
+	
+	private List<MeusBoletinsDTO> deBoletimParaMeusBoletinsDto(List<BoletimOcorrencia> list) {
+		List<MeusBoletinsDTO> listDto = new ArrayList<>();
+			for (BoletimOcorrencia bo : list) {
+				Long id = bo.getId();
+				Integer numeroDaOcorrencia = bo.getNumeroDaOcorrencia();
+				String ocorrencias = bo.ToStringOcorrencias();
+				String bairro = bo.getBairro().getNome();
+				String envolvidos = bo.toStringEnvolvidos();
+				listDto.add(new MeusBoletinsDTO(id, numeroDaOcorrencia, ocorrencias, bairro, envolvidos));
+			}
+		return listDto;
 	}
 }

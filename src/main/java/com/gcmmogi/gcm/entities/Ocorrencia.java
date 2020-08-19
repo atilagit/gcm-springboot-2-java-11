@@ -90,4 +90,9 @@ public class  Ocorrencia implements Serializable{
 			return false;
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return naturezaDaOcorrencia;
+	}
 }
