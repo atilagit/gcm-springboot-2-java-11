@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gcmmogi.gcm.dto.BoletimDTO;
 import com.gcmmogi.gcm.dto.MeusBoletinsDTO;
 import com.gcmmogi.gcm.entities.BoletimOcorrencia;
 import com.gcmmogi.gcm.entities.Envolvido;
@@ -69,10 +70,11 @@ public class BoletimOcorrenciaService {
 	
 	//UserSS user = UserService.authenticated();
 	
-	public List<BoletimOcorrencia> findAll(){
-		return repository.findAll();
+	public List<BoletimDTO> findAll(){
+		List<BoletimOcorrencia> list = repository.findAll(); 
+		return deBoletimParaBoletimDto(list);
 	}
-	
+
 	public List<MeusBoletinsDTO> meusBoletins(){
 		UserSS user = UserService.authenticated();
 		if(user==null) throw new AuthorizationException("Acesso negado");
@@ -276,6 +278,19 @@ public class BoletimOcorrenciaService {
 				String envolvidos = bo.toStringEnvolvidos();
 				listDto.add(new MeusBoletinsDTO(id, numeroDaOcorrencia, ocorrencias, bairro, envolvidos));
 			}
+		return listDto;
+	}
+	
+	private List<BoletimDTO> deBoletimParaBoletimDto(List<BoletimOcorrencia> list) {
+		List<BoletimDTO> listDto = new ArrayList<>();
+		for (BoletimOcorrencia bo : list) {
+			Long id = bo.getId();
+			String oficial = bo.getOficial().toString();
+			String ocorrencias = bo.ToStringOcorrencias();
+			String bairro = bo.getBairro().getNome();
+			String envolvidos = bo.toStringEnvolvidos();
+			listDto.add(new BoletimDTO(id, oficial, ocorrencias, bairro, envolvidos));
+		}
 		return listDto;
 	}
 }

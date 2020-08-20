@@ -28,7 +28,6 @@ public class Oficial implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@JsonIgnore
 	private String login;
 	private String senha;	
 	private String nome;
@@ -160,5 +159,11 @@ public class Oficial implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		String[] vect = nome.split(" ");
+		return vect[0] + " ("+ login + ")";
 	}
 }

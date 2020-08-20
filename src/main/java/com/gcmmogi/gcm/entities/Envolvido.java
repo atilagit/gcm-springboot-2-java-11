@@ -308,8 +308,7 @@ public class Envolvido implements Serializable {
 	
 	@Override
 	public String toString() {
-		
-		int index = nome.indexOf(" ");
-		return nome.substring(0,index) + "(" + CondicaoDaParte.valueOf(condicaoDaParte) + ")";
+		String[] vect = nome.split(" ");
+		return vect[0] + "(" + CondicaoDaParte.valueOf(condicaoDaParte) + ")";
 	}
 }

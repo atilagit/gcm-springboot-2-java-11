@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.gcmmogi.gcm.dto.BoletimDTO;
 import com.gcmmogi.gcm.dto.MeusBoletinsDTO;
 import com.gcmmogi.gcm.entities.BoletimOcorrencia;
 import com.gcmmogi.gcm.services.BoletimOcorrenciaService;
@@ -28,8 +29,8 @@ public class BoletimOcorrenciaResource {
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping
-	public ResponseEntity<List<BoletimOcorrencia>> findAll(){
-		List<BoletimOcorrencia> list = service.findAll();
+	public ResponseEntity<List<BoletimDTO>> findAll(){
+		List<BoletimDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
