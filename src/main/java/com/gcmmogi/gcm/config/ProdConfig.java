@@ -42,9 +42,8 @@ public class ProdConfig implements CommandLineRunner{
 			perfilSimples.add(Perfil.EM_CAMPO);
 			Set<Perfil> perfilAdm = new HashSet<>();
 			perfilAdm.addAll(Arrays.asList(Perfil.EM_CAMPO, Perfil.ADMINISTRATIVO));
-			Oficial o1 = new Oficial(null, "juca88", pe.encode("321"), "Juca", "Time-B", 6, "juca@hotmail.com", perfilSimples);
-			Oficial o2 = new Oficial(null, "marco87", pe.encode("222"), "Marco", "Time-C", 8, "marco@gmail.com", perfilAdm);
-			oficialRepository.saveAll(Arrays.asList(o1, o2));
+			Oficial o1 = new Oficial(null, "admin", pe.encode("321"), "GCM APP Admin", "adm", 0, "gcm.app.mogimirim@gmail.com", perfilAdm);
+			oficialRepository.saveAll(Arrays.asList(o1));
 			
 			List<Bairro> bairros = ConfiguracaoBD.populaBairros();
 			bairroRepository.saveAll(bairros);

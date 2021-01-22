@@ -99,6 +99,7 @@ public class TestConfig implements CommandLineRunner{
 		
 		Oficial o1 = new Oficial(null, "juca88", pe.encode("321"), "Juca", "Time-B", 6, "juca@hotmail.com", perfilSimples);
 		Oficial o2 = new Oficial(null, "marco87", pe.encode("222"), "Marco", "Time-C", 8, "marco@gmail.com", perfilAdm);
+		Oficial o3 = new Oficial(null, "admin", pe.encode("321"), "GCM APP Admin", "adm", 0, "gcm.app.mogimirim@gmail.com", perfilAdm);
 		
 		Bairro b1 = new Bairro (null, "Aterrado");
 		Bairro b2 = new Bairro (null, "Bairro Boa");
@@ -149,7 +150,7 @@ public class TestConfig implements CommandLineRunner{
 		BoletimOcorrencia bo5 = new BoletimOcorrencia(null, 4, "2020-06-20T19:53:07Z", "2020-06-20T19:53:07Z", 1, 10, "2020-06-20T19:53:07Z", "2020-06-20T19:53:07Z", "2020-06-20T19:53:07Z", "2020-06-20T19:53:07Z", 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o1, b1);
 		BoletimOcorrencia bo6 = new BoletimOcorrencia(null, 5, "2020-06-20T19:53:07Z", "2020-06-20T19:53:07Z", 2, 11, "2020-06-20T19:53:07Z", "2020-06-20T19:53:07Z", "2020-06-20T19:53:07Z", "2020-06-20T19:53:07Z", 11256, 11260, 11260, 11260, "local teste", "Relatorio teste", o2, b14);
 		
-		oficialRepository.saveAll(Arrays.asList(o1, o2));
+		oficialRepository.saveAll(Arrays.asList(o1, o2, o3));
 		boletimOcorrenciaRepository.saveAll(Arrays.asList(bo1, bo2, bo3, bo4, bo5, bo6));
 		
 		bo1.getVeiculos().add(va2);
