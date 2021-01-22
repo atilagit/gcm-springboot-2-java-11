@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,6 +45,8 @@ public class BoletimOcorrencia implements Serializable {
 	private Integer kmPrimeiroTermino;
 	private Integer kmSegundoTermino;
 	private String local;
+	
+	@Column(columnDefinition = "TEXT")
 	private String relatorioDaGCM;
 
 	@ManyToOne
