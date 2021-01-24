@@ -148,7 +148,7 @@ public class ConfiguracaoBD {
 		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "A05", "LESÃO CORPORAL"));
 		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "A06", "INFANTICÍDIO"));
 		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "A07", "PERCLITAÇÃO DE VIDA"));
-		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "A08", "ABANDONA DE INCAPAZ"));
+		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "A08", "ABANDONO DE INCAPAZ"));
 		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "A09", "OMISSÃO DE SOCORRO"));
 		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "A10", "AMEAÇA"));
 		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "A11", "SEQUESTRO / CÁRCERE PRIVADO"));
@@ -288,8 +288,8 @@ public class ConfiguracaoBD {
 		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "S13", "ESCOLTA DE AUTORIDADE"));
 		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "S14", "POSTO FIXO"));
 		
-//		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "TC", " TALÃO CANCELADO");
-//		OocorrenciasParaPopularBD.add(new Ocorrencia(null, "TR", " TALÃO RESERVADO");
+		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "TC", "TALÃO CANCELADO"));
+		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "TR", "TALÃO RESERVADO"));
 		
 		return ocorrenciasParaPopularBD;
 	}
