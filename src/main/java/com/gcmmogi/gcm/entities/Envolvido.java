@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,6 +38,8 @@ public class Envolvido implements Serializable {
 	private String naturalidadeEstado;
 	private String telefone;
 	private String localDeTrabalho;
+	
+	@Column(columnDefinition = "TEXT")
 	private String versaoDoEnvolvido;
 
 	@OneToOne(mappedBy = "envolvido", cascade = CascadeType.ALL)
