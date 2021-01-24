@@ -183,7 +183,7 @@ public class ConfiguracaoBD {
 		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "D07", "EXPLORAÇÃO DE LENOCÍNIO"));
 		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "D08", "JOGO DE AZAR"));
 		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "D10", "MEDICÂNCIA"));
-		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "D13", "TENTETIVA DE ESTUPRO"));
+		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "D13", "TENTATIVA DE ESTUPRO"));
 		
 		//CONTRA A ADMINISTRAÇÃO PÚBLICA
 		ocorrenciasParaPopularBD.add(new Ocorrencia(null, "E01", "CONCUSSÃO"));
